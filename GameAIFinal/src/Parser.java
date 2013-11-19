@@ -9,27 +9,26 @@ public class Parser {
 	public static Level parse(String name) {
 		String path = Constants.LVL_PATH + name + Constants.LVL_EXT;
 		
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String currentLine = "";
-		int lineNum = 0;
-		
-		while ((currentLine = br.readLine()) != null) {
-			addRow(currentLine);
-			lineNum = lineNum + 1;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			String currentLine = "";
+			int lineNum = 0;
+			
+			while ((currentLine = br.readLine()) != null) {
+				addRow(currentLine);
+				lineNum = lineNum + 1;
+			}
+			
+			if (lineNum != Constants.HEIGHT)
+				wrongFormat();
+			
+			br.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
 		}
 		
-		if (lineNum != Constants.HIEGHT)
-			wrongFormat();
-		
-//		try {
-//			
-//		}
-//		catch(IOException e) {
-//			e.printStackTrace();
-//		}
-//		finally {
-//			br.close();
-//		}
+		return level;
 	}
 	
 	private static void addRow(String line) {

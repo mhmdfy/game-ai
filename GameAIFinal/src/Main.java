@@ -24,7 +24,7 @@ public class Main {
 	}
 	
 	private static boolean fileExists(String name) {
-		File file = new File(Constants.MAP_PATH + name + Constants.MAP_EXT);
+		File file = new File(Constants.LVL_PATH + name + Constants.LVL_EXT);
 		return file.exists();
 	}
 }
