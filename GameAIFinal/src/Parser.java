@@ -7,7 +7,7 @@ public class Parser {
 	private static Level level;
 	
 	public static Level parse(String name) {
-		String path = Constants.MAP_PATH + name + Constants.MAP_EXT;
+		String path = Constants.LVL_PATH + name + Constants.LVL_EXT;
 		
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		String currentLine = "";
@@ -18,7 +18,7 @@ public class Parser {
 			lineNum = lineNum + 1;
 		}
 		
-		if (lineNum != Constants.LENGTH)
+		if (lineNum != Constants.HIEGHT)
 			wrongFormat();
 		
 //		try {
@@ -42,10 +42,10 @@ public class Parser {
 			char c = line.charAt(i); 
 			if(c == '.')
 				row[i] = new EmptyBlock();
-			else if(c == '*')
-				row[i] = new DestroyableBlock();
 			else if(c == '#')
-				row[i] = new PermenetBlock();
+				row[i] = new BreakableBlock();
+			else if(c == 'x')
+				row[i] = new WallBlock();
 			else
 				wrongFormat();
 		}

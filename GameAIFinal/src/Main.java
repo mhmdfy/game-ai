@@ -13,7 +13,7 @@ public class Main {
 		else
 			level = Generator.generate(args[0]);
 		
-		level.printMap();
+		level.printLevel();
 	}
 	
 	private static void validateArgs(String args[]) {
