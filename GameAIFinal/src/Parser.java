@@ -15,7 +15,7 @@ public class Parser {
 			int lineNum = 0;
 			
 			while ((currentLine = br.readLine()) != null) {
-				addRow(currentLine);
+				addRow(currentLine, lineNum);
 				lineNum = lineNum + 1;
 			}
 			
@@ -31,7 +31,7 @@ public class Parser {
 		return level;
 	}
 	
-	private static void addRow(String line) {
+	private static void addRow(String line, int lineNum) {
 		if(line.length() != Constants.WIDTH)
 			wrongFormat();
 		
@@ -49,7 +49,7 @@ public class Parser {
 				wrongFormat();
 		}
 		
-		level.addRow(row);
+		level.setRow(row, lineNum);
 	}
 	
 	private static void wrongFormat(){

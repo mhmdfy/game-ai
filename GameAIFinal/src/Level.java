@@ -1,45 +1,23 @@
 
 public class Level {
 	
-	//protected static final int BREAKABLE_BLOCK = 1;
-	//protected static final int EMPTY_BLOCK = 2;
-	//protected static final int WALL_BLOCK = 3;
+	private int width = Constants. WIDTH;
+	private int height = Constants.HEIGHT;
 	
-	protected int width = Constants. WIDTH;
-	protected int height = Constants.HEIGHT;
+	private Block[][] level;
 	
-	
-	private Block[][] map;
-	
-	public void initLevel()
+	public Level() 
 	{
-		for(int i = 0; i < width; i++)
-		{
-			for(int j = 0; i < height; j++)
-			{
-				map[i][j] = new EmptyBlock();
-			}
-		}
+		level = new Block[width][height];
+		initLevel();
 	}
 	
-	public void printLevel()
-	{
-		for(int i = 0; i < width; i++)
-		{
-			for(int j = 0; i < height; j++)
-			{
-				System.out.print(map[i][j]);
-			}
-		}
-		return;
-	}
-	
-	public Level(int width, int height)
-	{
-		this.width = width;
-		this.height = height;
-		map = new Block[width][height];
-	}
+	public Block getBlock(int x, int y)
+    {
+		validateXY(x, y);
+		
+		return level[x][y];
+    }
 	
 	public Block getBlockCapped(int x, int y)
     {
@@ -47,43 +25,65 @@ public class Level {
         if (y < 0) y = 0;
         if (x >= width) x = width - 1;
         if (y >= height) y = height - 1;
-        return map[x][y];
+        return level[x][y];
     }
 	
-	public Block getBlock(int x, int y)
-    {
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        if (x >= width) x = width - 1;
-        if (y >= height) y = height - 1;
-        return map[x][y];
+	public void setBlock(int x, int y, Block b)
+	{
+        validateXY(x, y);
+        
+        level[x][y] = b;
     }
-	
-	 public void setBlock(int x, int y, Block b)
-	    {
-	        if (x < 0) return;
-	        if (y < 0) return;
-	        if (x >= width) return;
-	        if (y >= height) return;
-	        map[x][y] = b;
-	    }
-	 
-	 public int getWidth()
-	 {
-		 return width;
-	 }
-	 
-	 public int getHeight()
-	 {
-		 return height;
-	 }
-	 
-	 public Block[][] getMap()
-	 {
-		 return map;	 
-	 }
-	 
-	 
 
+	public void printLevel()
+	{
+		for(int i = 0; i < width; i++)
+		{
+			for(int j = 0; i < height; j++)
+			{
+				level[i][j].print();
+			}
+			
+			System.out.println();
+		}
+	}
 	
+	public void setRow(Block[] row, int y)
+	{
+		validateY(y);
+		
+		for (int x = 0; x < width ; x++)
+		{
+			level[x][y] = row[x];
+		}
+	}
+	
+	private void initLevel()
+	{
+		for(int i = 0; i < width; i++)
+		{
+			for(int j = 0; i < height; j++)
+			{
+				level[i][j] = new EmptyBlock();
+			}
+		}
+	}
+	
+	private void validateXY(int x, int y)
+	{
+        validateX(x);
+        validateY(y);
+	}
+	
+	private void validateX(int x) 
+	{
+		if (x < 0 || x >= width)
+        	throw new IllegalArgumentException("X has to be between 0-" + (width-1));
+	}
+	
+	private void validateY(int y)
+	{
+		if (y < 0 || y >= height) 
+        	throw new IllegalArgumentException("Y has to be between 0-" + (height-1));
+	}
 }
