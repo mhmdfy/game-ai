@@ -15,12 +15,25 @@ public class Generator {
 	{
 		Level level = new Level();
 		Random random = new Random();
+		int chance = random.nextInt(3); // 0, 1, 2
+		
+		//if (chance == 0)
+			level = basicLevel();
+		
+		saveToFile(fileName, level);
+		return level;
+	}
+	
+	private static Level basicLevel()
+	{
+		Level level = new Level();
+		Random random = new Random();
 		for(int i = 0; i < width; i++)
 		{
 			for(int j = 0; j < height; j++)
 			{
 				int type = random.nextInt(4);
-				//Creates outer boarder of unbreakable wall
+				
 				if(i == 0 || j == 0 || i == width - 1 || j == width - 1)
 				{
 					level.setBlock(i, j, new WallBlock());
@@ -39,7 +52,6 @@ public class Generator {
 				}
 			}
 		}
-		saveToFile(fileName, level);
 		
 		return level;
 	}
