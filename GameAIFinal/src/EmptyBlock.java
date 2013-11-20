@@ -3,9 +3,9 @@
 public class EmptyBlock extends Block{
 
 	@Override
-    public void print() 
+    public String print() 
 	{
-		System.out.print(".");
+		return ".";
     }
 
 	

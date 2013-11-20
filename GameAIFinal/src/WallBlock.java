@@ -2,9 +2,9 @@
 public class WallBlock extends Block{
 
 	@Override
-    public void print() 
+    public String print() 
 	{
-		System.out.print("x");
+		return "X";
     }
 
 	

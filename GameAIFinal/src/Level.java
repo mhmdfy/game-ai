@@ -41,7 +41,7 @@ public class Level {
 		{
 			for(int j = 0; j < height; j++)
 			{
-				level[i][j].print();
+				System.out.print(level[i][j].print());
 			}
 			
 			System.out.println();

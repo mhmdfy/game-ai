@@ -4,10 +4,9 @@ import java.io.IOException;
 
 public class Parser {
 	
-	private static Level level;
-	
 	public static Level parse(String name) {
 		String path = Constants.LVL_PATH + name + Constants.LVL_EXT;
+		Level level = new Level();
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(path));
@@ -15,7 +14,8 @@ public class Parser {
 			int lineNum = 0;
 			
 			while ((currentLine = br.readLine()) != null) {
-				addRow(currentLine, lineNum);
+				Block[] row = getRow(currentLine);
+				level.setRow(row, lineNum);
 				lineNum = lineNum + 1;
 			}
 			
@@ -31,7 +31,7 @@ public class Parser {
 		return level;
 	}
 	
-	private static void addRow(String line, int lineNum) {
+	private static Block[] getRow(String line) {
 		if(line.length() != Constants.WIDTH)
 			wrongFormat();
 		
@@ -43,13 +43,13 @@ public class Parser {
 				row[i] = new EmptyBlock();
 			else if(c == '#')
 				row[i] = new BreakableBlock();
-			else if(c == 'x')
+			else if(c == 'X')
 				row[i] = new WallBlock();
 			else
 				wrongFormat();
 		}
 		
-		level.setRow(row, lineNum);
+		return row;
 	}
 	
 	private static void wrongFormat(){

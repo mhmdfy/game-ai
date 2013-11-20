@@ -1,6 +1,6 @@
 
 public abstract class Block {
 	
-	public abstract void print();
+	public abstract String print();
 	
 }

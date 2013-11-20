@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class Generator {
@@ -35,9 +39,37 @@ public class Generator {
 				}
 			}
 		}
+		saveToFile(fileName, level);
+		
 		return level;
 	}
 	
-	//private void printToFile(int x, int y, Level level)
+	private static void saveToFile(String name, Level level)
+	{
+		String path = Constants.LVL_PATH + name + Constants.LVL_EXT;
+		try {
+			File file = new File(path);
+			
+			if(!file.exists())
+				file.createNewFile();
+			
+			BufferedWriter out = new BufferedWriter(new FileWriter(path));
+			
+			for(int i = 0; i < width; i++)
+			{
+				for(int j = 0; j < height; j++)
+				{
+					out.write(level.getBlock(i, j).print());
+				}
+				
+				out.write("\n");
+			}
+			
+			out.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
