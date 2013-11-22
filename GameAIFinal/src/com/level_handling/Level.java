@@ -1,11 +1,15 @@
 package com.level_handling;
 
+import java.io.Serializable;
+
 import com.data_structure.block.Block;
 import com.data_structure.block.EmptyBlock;
 import com.game.Constants;
 
 
-public class Level {
+public class Level implements Serializable {
+	
+	private static final long serialVersionUID = 1813773854725251446L;
 	
 	private int width = Constants. WIDTH;
 	private int height = Constants.HEIGHT;
