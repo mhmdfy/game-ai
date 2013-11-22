@@ -5,9 +5,9 @@ import java.io.ObjectOutputStream;
 
 import processing.core.PApplet;
 
-import com.level_handling.Generator;
 import com.level_handling.Level;
 import com.level_handling.Parser;
+import com.level_handling.generator.Generator;
 
 
 public class Main {
