@@ -50,11 +50,12 @@ public class Main {
 			so.writeObject(game);
 			so.flush();
 			result = bo.toString();
+			return result;
 		} catch (Exception e) {
 			System.out.println(e);
 			System.exit(1);
 		}
 		
-		return result;
+		throw new RuntimeException("Unable to serialize game");
 	}
 }
