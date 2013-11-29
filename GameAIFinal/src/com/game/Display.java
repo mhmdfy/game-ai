@@ -26,6 +26,7 @@ public class Display extends PApplet
 		// Initialize all images
 		wall = loadImage(Constants.IMG_PATH + "wall" + Constants.IMG_EXT);
 		brick = loadImage(Constants.IMG_PATH + "brick" + Constants.IMG_EXT);
+		bomberman = loadImage(Constants.IMG_PATH + "bomberman" + Constants.IMG_EXT);
 	}
 
 	@Override
@@ -36,11 +37,47 @@ public class Display extends PApplet
 		for(int x = 0; x < Constants.WIDTH; x++) {
 			for(int y = 0; y < Constants.HEIGHT; y++) {
 				if(game.getLevel().getBlock(x, y).isWall())
-					image(wall,x*50, y*50);
+					image(wall,x*Constants.MAP_X, y*Constants.MAP_Y);
 				if(game.getLevel().getBlock(x, y).isBreakable())
-					image(brick,x*50, y*50);
+					image(brick,x*Constants.MAP_X, y*Constants.MAP_Y);
 			}
 		}
+		
+		image(bomberman, game.getPlayer().getX(), game.getPlayer().getY());
+	}
+	
+	@Override
+	public void keyPressed() {
+		if (key == CODED) {
+			if (keyCode == UP) {
+				moveUp();
+			}
+			else if (keyCode == DOWN) {
+				moveDown();
+			}
+			else if (keyCode == RIGHT) {
+				moveRight();
+			}
+			else if (keyCode == LEFT) {
+				moveLeft();
+			}
+		}
+	}
+	
+	private void moveUp() {
+		game.moveUp();
+	}
+	
+	private void moveDown() {
+		game.moveDown();
+	}
+
+	private void moveRight() {
+		game.moveRight();
+	}
+
+	private void moveLeft() {
+		game.moveLeft();
 	}
 	
 	private static Game deserializeString(String string) {

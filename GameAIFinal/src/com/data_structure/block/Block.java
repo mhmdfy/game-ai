@@ -12,6 +12,9 @@ public abstract class Block implements Serializable {
 	public boolean isBreakable() {
 		return false;
 	}
+	public boolean isEmpty() {
+		return false;
+	}
 	public abstract String print();
 	
 }

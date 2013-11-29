@@ -20,7 +20,7 @@ public class Game implements Serializable {
 	public Game(Level level)
 	{
 		this.level = level;
-		this.player = new Bomberman();
+		this.player = new Bomberman(Constants.MAP_X, Constants.MAP_Y);
 		this.enemies = initializeEnemies();
 		this.bombs = new ArrayList<Bomb>();
 	}
@@ -32,13 +32,117 @@ public class Game implements Serializable {
 		return new ArrayList<Char>();
 	}
 	
-	public void display()
-	{
-		System.out.println("displaying");
-	}
-	
 	public Level getLevel() 
 	{
 		return level;
+	}
+	
+	public Char getPlayer()
+	{
+		return player;
+	}
+	
+	public void moveUp()
+	{
+		if (player.getY() % Constants.MAP_Y != 0)
+		{
+			player.moveUp();
+			return;
+		}
+		
+		int x = player.getMapX();
+		int y = player.getMapY();
+		
+		if(y-1 < 0)
+			return;
+		
+		if(player.getX() % Constants.MAP_X != 0)
+		{
+			if (level.getBlock(x, y-1).isEmpty() && level.getBlock(x+1, y-1).isEmpty())
+				player.moveUp();
+		}
+		else
+		{
+			if (level.getBlock(x, y-1).isEmpty())
+				player.moveUp();
+		}
+	}
+	
+	public void moveDown()
+	{
+		if (player.getY() % Constants.MAP_Y != 0)
+		{
+			player.moveDown();
+			return;
+		}
+		
+		int x = player.getMapX();
+		int y = player.getMapY();
+		
+		if(y+1 >= Constants.HEIGHT)
+			return;
+		
+		if(player.getX() % Constants.MAP_X != 0)
+		{
+			if (level.getBlock(x, y+1).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
+				player.moveDown();
+		}
+		else
+		{
+			if (level.getBlock(x, y+1).isEmpty())
+				player.moveDown();
+		}
+	}
+	
+	public void moveLeft()
+	{
+		if (player.getX() % Constants.MAP_X != 0)
+		{
+			player.moveLeft();
+			return;
+		}
+		
+		int x = player.getMapX();
+		int y = player.getMapY();
+		
+		if(x-1 < 0)
+			return;
+		
+		if(player.getY() % Constants.MAP_Y != 0)
+		{
+			if (level.getBlock(x-1, y).isEmpty() && level.getBlock(x-1, y+1).isEmpty())
+				player.moveLeft();
+		}
+		else
+		{
+			if (level.getBlock(x-1, y).isEmpty())
+				player.moveLeft();
+		}
+	}
+	
+	public void moveRight()
+	{
+		if (player.getX() % Constants.MAP_X != 0)
+		{
+			player.moveRight();
+			return;
+		}
+		
+		int x = player.getMapX();
+		int y = player.getMapY();
+		
+		if(x+1 >= Constants.WIDTH)
+			return;
+		
+		if(player.getY() % Constants.MAP_Y != 0)
+		{
+			if (level.getBlock(x+1, y).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
+				player.moveRight();
+		}
+		else
+		{
+			if (level.getBlock(x+1, y).isEmpty())
+				player.moveRight();
+		}
 	}
 }
