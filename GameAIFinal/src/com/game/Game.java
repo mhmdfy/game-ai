@@ -2,6 +2,7 @@ package com.game;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.data_structure.block.EmptyBlock;
 import com.data_structure.bomb.Bomb;
 import com.data_structure.character.Bomberman;
 import com.data_structure.character.Char;
@@ -62,9 +63,41 @@ public class Game implements Serializable {
 		}
 	}
 	
-	private void explode(int i)
+	private void explode(int ind)
 	{
-		bombs.remove(i);
+		Bomb bomb = bombs.remove(ind);
+		
+		for (int x = bomb.getX(); x < bomb.getX() + bomb.getRange(); x++)
+		{
+			if(level.getBlock(x, bomb.getY()).isBreakable())
+				level.setBlock(x, bomb.getY(), new EmptyBlock());
+			if(level.getBlock(x, bomb.getY()).isWall())
+				break;
+		}
+		
+		for (int x = bomb.getX(); x > bomb.getX() - bomb.getRange(); x--)
+		{
+			if(level.getBlock(x, bomb.getY()).isBreakable())
+				level.setBlock(x, bomb.getY(), new EmptyBlock());
+			if(!level.getBlock(x, bomb.getY()).isEmpty())
+				break;
+		}
+		
+		for (int y = bomb.getY(); y < bomb.getY() + bomb.getRange(); y++)
+		{
+			if(level.getBlock(bomb.getX(), y).isBreakable())
+				level.setBlock(bomb.getX(), y, new EmptyBlock());
+			if(level.getBlock(bomb.getX(), y).isWall())
+				break;
+		}
+		
+		for (int y = bomb.getY(); y > bomb.getY() - bomb.getRange(); y--)
+		{
+			if(level.getBlock(bomb.getX(), y).isBreakable())
+				level.setBlock(bomb.getX(), y, new EmptyBlock());
+			if(!level.getBlock(bomb.getX(), y).isEmpty())
+				break;
+		}
 	}
 	
 	public void playerBomb()

@@ -11,12 +11,14 @@ public class Bomb implements Serializable {
 	private int x;
 	private int y;
 	private int timer;
+	private int range;
 	
 	public Bomb(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
 		this.timer = Constants.TIMER;
+		this.range = Constants.RANGE;
 	}
 	
 	public Bomb(int x, int y, int timer)
@@ -34,6 +36,11 @@ public class Bomb implements Serializable {
 	public int getY()
 	{
 		return y;
+	}
+	
+	public int getRange()
+	{
+		return range;
 	}
 	
 	public boolean tick()

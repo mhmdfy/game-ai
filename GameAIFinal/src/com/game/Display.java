@@ -18,6 +18,7 @@ public class Display extends PApplet
 	PImage brick;
 	PImage bomberman;
 	PImage bomb;
+	PImage fire;
 	
 	@Override
 	public void setup() {
@@ -30,6 +31,7 @@ public class Display extends PApplet
 		brick = loadImage(Constants.IMG_PATH + "brick" + Constants.IMG_EXT);
 		bomberman = loadImage(Constants.IMG_PATH + "bomberman" + Constants.IMG_EXT);
 		bomb = loadImage(Constants.IMG_PATH + "bomb" + Constants.IMG_EXT);
+		fire = loadImage(Constants.IMG_PATH + "fire" + Constants.IMG_EXT);
 	}
 
 	@Override
