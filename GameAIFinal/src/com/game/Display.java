@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import com.data_structure.bomb.Bomb;
+
 public class Display extends PApplet 
 {
 	private static final long serialVersionUID = 3480668359190549352L;
@@ -27,6 +29,7 @@ public class Display extends PApplet
 		wall = loadImage(Constants.IMG_PATH + "wall" + Constants.IMG_EXT);
 		brick = loadImage(Constants.IMG_PATH + "brick" + Constants.IMG_EXT);
 		bomberman = loadImage(Constants.IMG_PATH + "bomberman" + Constants.IMG_EXT);
+		bomb = loadImage(Constants.IMG_PATH + "bomb" + Constants.IMG_EXT);
 	}
 
 	@Override
@@ -43,11 +46,20 @@ public class Display extends PApplet
 			}
 		}
 		
+		for (Bomb b : game.getBombs()) {
+			image(bomb, b.getX()*Constants.MAP_X, b.getY()*Constants.MAP_Y);
+		}
+		
 		image(bomberman, game.getPlayer().getX(), game.getPlayer().getY());
+		
+		game.tick();
 	}
 	
 	@Override
 	public void keyPressed() {
+		if (key == 32) {
+			game.playerBomb();
+		}
 		if (key == CODED) {
 			if (keyCode == UP) {
 				moveUp();

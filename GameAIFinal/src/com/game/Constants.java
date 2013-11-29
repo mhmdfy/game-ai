@@ -10,6 +10,5 @@ public class Constants {
 	public final static int MAP_X = 50; 
 	public final static int MAP_Y = 50;
 	public final static int STEP = 10;
-	
-	
+	public final static int TIMER = 150;
 }

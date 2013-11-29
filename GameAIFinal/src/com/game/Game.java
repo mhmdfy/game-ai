@@ -42,6 +42,41 @@ public class Game implements Serializable {
 		return player;
 	}
 	
+	public ArrayList<Bomb> getBombs()
+	{
+		return bombs;
+	}
+	
+	public void tick()
+	{
+		player.tick();
+		for(Char e : enemies)
+		{
+			e.tick();
+		}
+		
+		for(int i = bombs.size()-1; i >= 0; i--)
+		{
+			if(bombs.get(i).tick())
+				explode(i);
+		}
+	}
+	
+	private void explode(int i)
+	{
+		bombs.remove(i);
+	}
+	
+	public void playerBomb()
+	{
+		if(player.canBomb())
+		{
+			player.addTimer(Constants.TIMER);
+			Bomb bomb = new Bomb(player.getMapX(), player.getMapY());
+			bombs.add(bomb);
+		}
+	}
+	
 	public void moveUp()
 	{
 		if (player.getY() % Constants.MAP_Y != 0)
