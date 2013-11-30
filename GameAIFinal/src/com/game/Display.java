@@ -21,6 +21,9 @@ public class Display extends PApplet
 	PImage bomb;
 	PImage flame;
 	
+	PImage gameOver;
+	PImage gameWin;
+	
 	@Override
 	public void setup() {
 		size(1050,1050);
@@ -33,6 +36,9 @@ public class Display extends PApplet
 		bomberman = loadImage(Constants.IMG_PATH + "bomberman" + Constants.IMG_EXT);
 		bomb = loadImage(Constants.IMG_PATH + "bomb" + Constants.IMG_EXT);
 		flame = loadImage(Constants.IMG_PATH + "flame" + Constants.IMG_EXT);
+		
+		gameOver = loadImage(Constants.IMG_PATH + "gameOver" + Constants.IMG_EXT);
+		gameWin = loadImage(Constants.IMG_PATH + "gameWin" + Constants.IMG_EXT);
 	}
 
 	@Override
@@ -40,26 +46,34 @@ public class Display extends PApplet
 		// draw the green background
 		background(0,100,0);
 		
-		for(int x = 0; x < Constants.WIDTH; x++) {
-			for(int y = 0; y < Constants.HEIGHT; y++) {
+		for(int x = 0; x < Constants.WIDTH; x++) 
+		{
+			for(int y = 0; y < Constants.HEIGHT; y++) 
+			{
 				if(game.getLevel().getBlock(x, y).isWall())
 					image(wall,x*Constants.MAP_X, y*Constants.MAP_Y);
+				
 				if(game.getLevel().getBlock(x, y).isBreakable())
 					image(brick,x*Constants.MAP_X, y*Constants.MAP_Y);
 			}
 		}
 		
-		for (Bomb b : game.getBombs()) {
+		for (Bomb b : game.getBombs())
 			image(bomb, b.getX()*Constants.MAP_X, b.getY()*Constants.MAP_Y);
-		}
 		
-		for (Flame f : game.getFlames()) {
+		for (Flame f : game.getFlames()) 
 			image(flame, f.getX()*Constants.MAP_X, f.getY()*Constants.MAP_Y);
-		}
 		
 		image(bomberman, game.getPlayer().getX(), game.getPlayer().getY());
 		
 		game.tick();
+		
+		if(game.getState() == Constants.GAME_LOSE)
+			image(gameOver, 0, 0);
+		
+		else if(game.getState() == Constants.GAME_WIN)
+			image(gameWin, 0, 0);
+			
 	}
 	
 	@Override

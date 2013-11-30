@@ -14,8 +14,10 @@ public class Game implements Serializable {
 	
 	private static final long serialVersionUID = -8053469542486898772L;
 	
+	private String state;
+	
 	private Level level;
-	private Char player;
+	private Bomberman player;
 	private ArrayList<Char> enemies;
 	private ArrayList<Bomb> bombs;
 	private ArrayList<Flame> flames;
@@ -27,6 +29,8 @@ public class Game implements Serializable {
 		this.enemies = initializeEnemies();
 		this.bombs = new ArrayList<Bomb>();
 		this.flames = new ArrayList<Flame>();
+		
+		this.state = Constants.GAME_ACTIVE;
 	}
 	
 	private ArrayList<Char> initializeEnemies()
@@ -34,6 +38,11 @@ public class Game implements Serializable {
 		// TODO code here
 		
 		return new ArrayList<Char>();
+	}
+	
+	public String getState()
+	{
+		return state;
 	}
 	
 	public Level getLevel() 
@@ -58,6 +67,9 @@ public class Game implements Serializable {
 	
 	public void tick()
 	{
+		if(player.getLifes() == 0)
+			state = Constants.GAME_LOSE;
+		
 		player.tick();
 		for(Char e : enemies)
 		{
@@ -96,7 +108,7 @@ public class Game implements Serializable {
 			
 			if (player.getMapX() == x && player.getMapY() == bomb.getY())
 			{
-				// TODO: lose game
+				player.die();
 			}
 		}
 		
@@ -115,7 +127,7 @@ public class Game implements Serializable {
 			
 			if (player.getMapX() == x && player.getMapY() == bomb.getY())
 			{
-				// TODO: lose game
+				player.die();
 			}
 		}
 		
@@ -134,7 +146,7 @@ public class Game implements Serializable {
 			
 			if (player.getMapX() == bomb.getX() && player.getMapY() == y)
 			{
-				// TODO: lose game
+				player.die();
 			}
 		}
 		
@@ -153,7 +165,7 @@ public class Game implements Serializable {
 			
 			if (player.getMapX() == bomb.getX() && player.getMapY() == y)
 			{
-				// TODO: lose game
+				player.die();
 			}
 		}
 	}

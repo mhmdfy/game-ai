@@ -11,8 +11,13 @@ public class Constants {
 	public final static int MAP_X = 50; 
 	public final static int MAP_Y = 50;
 	
+	public final static int LIFES = 1;
 	public final static int STEP = 10;
 	public final static int BOMB_TIMER = 150;
 	public final static int BOMB_RANGE = 3;
 	public final static int FLAME_TIMER = 50;
+	
+	public final static String GAME_ACTIVE = "active";
+	public final static String GAME_LOSE = "lose";
+	public final static String GAME_WIN = "win";
 }
