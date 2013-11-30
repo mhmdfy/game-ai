@@ -7,6 +7,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 import com.data_structure.bomb.Bomb;
+import com.data_structure.bomb.Flame;
 
 public class Display extends PApplet 
 {
@@ -18,7 +19,7 @@ public class Display extends PApplet
 	PImage brick;
 	PImage bomberman;
 	PImage bomb;
-	PImage fire;
+	PImage flame;
 	
 	@Override
 	public void setup() {
@@ -31,7 +32,7 @@ public class Display extends PApplet
 		brick = loadImage(Constants.IMG_PATH + "brick" + Constants.IMG_EXT);
 		bomberman = loadImage(Constants.IMG_PATH + "bomberman" + Constants.IMG_EXT);
 		bomb = loadImage(Constants.IMG_PATH + "bomb" + Constants.IMG_EXT);
-		fire = loadImage(Constants.IMG_PATH + "fire" + Constants.IMG_EXT);
+		flame = loadImage(Constants.IMG_PATH + "flame" + Constants.IMG_EXT);
 	}
 
 	@Override
@@ -50,6 +51,10 @@ public class Display extends PApplet
 		
 		for (Bomb b : game.getBombs()) {
 			image(bomb, b.getX()*Constants.MAP_X, b.getY()*Constants.MAP_Y);
+		}
+		
+		for (Flame f : game.getFlames()) {
+			image(flame, f.getX()*Constants.MAP_X, f.getY()*Constants.MAP_Y);
 		}
 		
 		image(bomberman, game.getPlayer().getX(), game.getPlayer().getY());
