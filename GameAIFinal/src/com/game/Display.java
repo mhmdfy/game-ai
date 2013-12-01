@@ -8,6 +8,7 @@ import processing.core.PImage;
 
 import com.data_structure.bomb.Bomb;
 import com.data_structure.bomb.Flame;
+import com.data_structure.character.Char;
 
 public class Display extends PApplet 
 {
@@ -18,6 +19,7 @@ public class Display extends PApplet
 	PImage wall;
 	PImage brick;
 	PImage bomberman;
+	PImage enemy;
 	PImage bomb;
 	PImage flame;
 	
@@ -25,7 +27,8 @@ public class Display extends PApplet
 	PImage gameWin;
 	
 	@Override
-	public void setup() {
+	public void setup() 
+	{
 		size(1050,1050);
 		
 		game = deserializeString(args[0]);
@@ -34,6 +37,7 @@ public class Display extends PApplet
 		wall = loadImage(Constants.IMG_PATH + "wall" + Constants.IMG_EXT);
 		brick = loadImage(Constants.IMG_PATH + "brick" + Constants.IMG_EXT);
 		bomberman = loadImage(Constants.IMG_PATH + "bomberman" + Constants.IMG_EXT);
+		enemy = loadImage(Constants.IMG_PATH + "enemy" + Constants.IMG_EXT);
 		bomb = loadImage(Constants.IMG_PATH + "bomb" + Constants.IMG_EXT);
 		flame = loadImage(Constants.IMG_PATH + "flame" + Constants.IMG_EXT);
 		
@@ -42,7 +46,8 @@ public class Display extends PApplet
 	}
 
 	@Override
-	public void draw() {
+	public void draw() 
+	{
 		// draw the green background
 		background(0,100,0);
 		
@@ -66,6 +71,9 @@ public class Display extends PApplet
 		
 		image(bomberman, game.getPlayer().getX(), game.getPlayer().getY());
 		
+		for (Char c : game.getEnemies())
+			image(enemy, c.getX(), c.getY());
+		
 		game.tick();
 		
 		if(game.getState() == Constants.GAME_LOSE)
@@ -77,51 +85,40 @@ public class Display extends PApplet
 	}
 	
 	@Override
-	public void keyPressed() {
-		if (key == 32) {
+	public void keyPressed() 
+	{
+		if (key == 32) 
 			game.playerBomb();
+		
+		if (key == CODED) 
+		{
+			if (keyCode == UP) 
+				game.moveUp();
+			
+			else if (keyCode == DOWN) 
+				game.moveDown();
+			
+			else if (keyCode == RIGHT) 
+				game.moveRight();
+			
+			else if (keyCode == LEFT) 
+				game.moveLeft();
 		}
-		if (key == CODED) {
-			if (keyCode == UP) {
-				moveUp();
-			}
-			else if (keyCode == DOWN) {
-				moveDown();
-			}
-			else if (keyCode == RIGHT) {
-				moveRight();
-			}
-			else if (keyCode == LEFT) {
-				moveLeft();
-			}
-		}
 	}
 	
-	private void moveUp() {
-		game.moveUp();
-	}
-	
-	private void moveDown() {
-		game.moveDown();
-	}
-
-	private void moveRight() {
-		game.moveRight();
-	}
-
-	private void moveLeft() {
-		game.moveLeft();
-	}
-	
-	private static Game deserializeString(String string) {
+	private static Game deserializeString(String string) 
+	{
 		// deserialize the object
-		try {
+		try 
+		{
 			byte b[] = string.getBytes(); 
 			ByteArrayInputStream bi = new ByteArrayInputStream(b);
 			ObjectInputStream si = new ObjectInputStream(bi);
 			Game game = (Game) si.readObject();
 			return game;
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			System.out.println(e);
 			System.exit(1);
 		}

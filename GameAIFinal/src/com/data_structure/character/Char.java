@@ -10,13 +10,11 @@ public abstract class Char implements Serializable {
 	
 	private int x;
 	private int y;
-	private int timer;
 	
 	public Char(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.timer = 0;
 	}
 	
 	public int getX()
@@ -47,23 +45,7 @@ public abstract class Char implements Serializable {
 		return y / Constants.MAP_Y;
 	}
 	
-	public void tick()
-	{
-		timer = timer - 1;
-	}
-	
-	public boolean canBomb()
-	{
-		if (timer > 0)
-			return false;
-		else
-			return true;
-	}
-	
-	public void addTimer(int t)
-	{
-		timer = t;
-	}
+	public abstract void tick();
 	
 	public void setCoords(int x, int y)
 	{

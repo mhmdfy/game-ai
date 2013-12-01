@@ -20,4 +20,7 @@ public class Constants {
 	public final static String GAME_ACTIVE = "active";
 	public final static String GAME_LOSE = "lose";
 	public final static String GAME_WIN = "win";
+	
+	public final static int ENEMY_NUM = 6;
+	public final static int AI_TIMER = 100;
 }

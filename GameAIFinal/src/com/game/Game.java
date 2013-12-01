@@ -1,10 +1,12 @@
 package com.game;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.data_structure.block.EmptyBlock;
 import com.data_structure.bomb.Bomb;
 import com.data_structure.bomb.Flame;
+import com.data_structure.character.AI;
 import com.data_structure.character.Bomberman;
 import com.data_structure.character.Char;
 import com.level_handling.Level;
@@ -18,7 +20,7 @@ public class Game implements Serializable {
 	
 	private Level level;
 	private Bomberman player;
-	private ArrayList<Char> enemies;
+	private ArrayList<AI> enemies;
 	private ArrayList<Bomb> bombs;
 	private ArrayList<Flame> flames;
 	
@@ -33,11 +35,25 @@ public class Game implements Serializable {
 		this.state = Constants.GAME_ACTIVE;
 	}
 	
-	private ArrayList<Char> initializeEnemies()
+	private ArrayList<AI> initializeEnemies()
 	{
-		// TODO code here
+		ArrayList<AI> list = new ArrayList<AI>();
+		for(int i = 0; i < Constants.ENEMY_NUM; i++)
+		{
+			Random random = new Random();
+			int x = 0;
+			int y = 0;
+			
+			do
+			{
+				x = random.nextInt(Constants.WIDTH);
+				y = random.nextInt(Constants.HEIGHT-4) + 4;
+			}while(!level.getBlock(x, y).isEmpty());
+			
+			list.add(new AI(x*Constants.MAP_X, y*Constants.MAP_Y));
+		}
 		
-		return new ArrayList<Char>();
+		return list;
 	}
 	
 	public String getState()
@@ -50,9 +66,14 @@ public class Game implements Serializable {
 		return level;
 	}
 	
-	public Char getPlayer()
+	public Bomberman getPlayer()
 	{
 		return player;
+	}
+	
+	public ArrayList<AI> getEnemies()
+	{
+		return enemies;
 	}
 	
 	public ArrayList<Bomb> getBombs()
@@ -69,6 +90,8 @@ public class Game implements Serializable {
 	{
 		if(player.getLifes() == 0)
 			state = Constants.GAME_LOSE;
+		if(enemies.size() == 0)
+			state = Constants.GAME_WIN;
 		
 		player.tick();
 		for(Char e : enemies)
@@ -84,6 +107,18 @@ public class Game implements Serializable {
 		
 		for(int i = flames.size()-1; i >= 0; i--)
 		{
+			int x = flames.get(i).getX();
+			int y = flames.get(i).getY();
+			
+			if (player.getMapX() == x && player.getMapY() == y)
+				player.die();
+			
+			for(int j = enemies.size()-1; j >= 0; j--)
+			{
+				if(enemies.get(j).getMapX() == x && enemies.get(j).getMapY() == y)
+					enemies.remove(j);	
+			}
+			
 			if(flames.get(i).tick())
 				flames.remove(i);
 		}
@@ -105,11 +140,6 @@ public class Game implements Serializable {
 				break;
 			
 			flames.add(new Flame(x, bomb.getY()));
-			
-			if (player.getMapX() == x && player.getMapY() == bomb.getY())
-			{
-				player.die();
-			}
 		}
 		
 		for (int x = bomb.getX(); x > bomb.getX() - bomb.getRange(); x--)
@@ -124,11 +154,6 @@ public class Game implements Serializable {
 				break;
 			
 			flames.add(new Flame(x, bomb.getY()));
-			
-			if (player.getMapX() == x && player.getMapY() == bomb.getY())
-			{
-				player.die();
-			}
 		}
 		
 		for (int y = bomb.getY(); y < bomb.getY() + bomb.getRange(); y++)
@@ -143,11 +168,6 @@ public class Game implements Serializable {
 				break;
 			
 			flames.add(new Flame(bomb.getX(), y));
-			
-			if (player.getMapX() == bomb.getX() && player.getMapY() == y)
-			{
-				player.die();
-			}
 		}
 		
 		for (int y = bomb.getY(); y > bomb.getY() - bomb.getRange(); y--)
@@ -162,11 +182,6 @@ public class Game implements Serializable {
 				break;
 			
 			flames.add(new Flame(bomb.getX(), y));
-			
-			if (player.getMapX() == bomb.getX() && player.getMapY() == y)
-			{
-				player.die();
-			}
 		}
 	}
 	
