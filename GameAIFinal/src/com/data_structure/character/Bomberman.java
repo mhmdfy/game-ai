@@ -43,7 +43,10 @@ public class Bomberman extends Char {
 	public void die()
 	{
 		if (lifes > 0)
+		{
 			lifes = lifes - 1;
+			setCoords(Constants.MAP_X, Constants.MAP_Y);
+		}
 		
 	}
 
