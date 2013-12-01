@@ -1,6 +1,7 @@
 package com.game;
 
-public class Constants {
+public class Constants 
+{
 	public final static String LVL_PATH = "./levels/";
 	public final static String LVL_EXT = ".lvl";
 	public final static String IMG_PATH = "./imgs/";

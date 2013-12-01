@@ -2,8 +2,8 @@ package com.data_structure.character;
 
 import com.game.Constants;
 
-public class Bomberman extends Char {
-
+public class Bomberman extends Char 
+{
 	private static final long serialVersionUID = -8640148391806602267L;
 	
 	private int lifes;
@@ -47,7 +47,6 @@ public class Bomberman extends Char {
 			lifes = lifes - 1;
 			setCoords(Constants.MAP_X, Constants.MAP_Y);
 		}
-		
 	}
 
 }

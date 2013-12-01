@@ -12,8 +12,8 @@ import com.data_structure.character.Char;
 import com.level_handling.Level;
 
 
-public class Game implements Serializable {
-	
+public class Game implements Serializable 
+{	
 	private static final long serialVersionUID = -8053469542486898772L;
 	
 	private String state;

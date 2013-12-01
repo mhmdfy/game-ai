@@ -4,8 +4,8 @@ import java.util.Random;
 
 import com.game.Constants;
 
-public class AI extends Char {
-
+public class AI extends Char 
+{
 	private static final long serialVersionUID = -5636317255908578346L;
 
 	private int nextMove;
