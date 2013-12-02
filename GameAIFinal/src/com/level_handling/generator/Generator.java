@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.game.Constants;
+import com.data_structure.block.Block;
 import com.level_handling.Level;
 
 public class Generator {
@@ -23,6 +24,36 @@ public class Generator {
 		
 		saveToFile(fileName, level);
 		return level;
+	}
+	
+	public void verify(int x, int y, Level level)
+	{
+		Block currentBlock = level.getBlock(x, y);
+		if(!currentBlock.isEmpty())
+		{
+			return;
+		}
+		currentBlock.setFlag(true);
+		verify(x - 1, y, level);
+		verify(x + 1, y, level);
+		verify(x, y - 1, level);
+		verify(x, y + 1, level);
+		return;
+	}
+	
+	public boolean valid(Level level)
+	{
+		for(int x = 0; x < width; x++)
+		{
+			for(int y = 0; y < height; y++)
+			{
+				if(level.getBlock(x, y).isEmpty() && !level.getBlock(x, y).isFlaged())
+				{
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	private static void saveToFile(String name, Level level)

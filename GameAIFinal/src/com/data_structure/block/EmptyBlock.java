@@ -15,6 +15,5 @@ public class EmptyBlock extends Block{
 	{
 		return ".";
     }
-
 	
 }
