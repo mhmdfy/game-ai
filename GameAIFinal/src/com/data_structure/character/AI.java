@@ -31,17 +31,11 @@ public class AI extends Char
 			nextMove = random.nextInt(3);
 			timer = Constants.AI_TIMER;
 		}
-		
-		/*
-		if(nextMove == 0)
-			moveUp();
-		if(nextMove == 1)
-			moveDown();
-		if(nextMove == 2)
-			moveLeft();
-		if(nextMove == 3)
-			moveRight();
-			*/
+	}
+	
+	public int getNextMove()
+	{
+		return nextMove;
 	}
 
 }
