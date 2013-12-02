@@ -8,6 +8,6 @@ public class EmptyBlock extends Block{
 	{
 		return ".";
     }
-
+public boolean flag
 	
 }
