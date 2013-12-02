@@ -94,9 +94,10 @@ public class Game implements Serializable
 			state = Constants.GAME_WIN;
 		
 		player.tick();
-		for(Char e : enemies)
+		for(int i = 0; i < enemies.size(); i++)
 		{
-			e.tick();
+			enemies.get(i).tick();
+			moveAI(i);
 		}
 		
 		for(int i = bombs.size()-1; i >= 0; i--)
@@ -124,8 +125,7 @@ public class Game implements Serializable
 		}
 	}
 	
-	/*
-	private void tickAI(int i)
+	private void moveAI(int i)
 	{
 		AI ai = enemies.get(i);		
 		
@@ -138,7 +138,6 @@ public class Game implements Serializable
 		if(ai.getNextMove() == 3 && canMoveRight(ai))
 			ai.moveRight();
 	}
-	*/
 	
 	private void explode(int i)
 	{
@@ -211,112 +210,125 @@ public class Game implements Serializable
 		}
 	}
 	
-	public void moveUp()
+	public void move(String key)
 	{
-		if (player.getY() % Constants.MAP_Y != 0)
-		{
+		if (key == "up" && canMoveUp(player))
 			player.moveUp();
-			return;
-		}
 		
-		int x = player.getMapX();
-		int y = player.getMapY();
-		
-		if(y-1 < 0)
-			return;
-		
-		if(player.getX() % Constants.MAP_X != 0)
-		{
-			if (level.getBlock(x, y-1).isEmpty() && level.getBlock(x+1, y-1).isEmpty())
-				player.moveUp();
-		}
-		else
-		{
-			if (level.getBlock(x, y-1).isEmpty())
-				player.moveUp();
-		}
-	}
-	
-	public void moveDown()
-	{
-		if (player.getY() % Constants.MAP_Y != 0)
-		{
+		else if (key == "down" && canMoveDown(player)) 
 			player.moveDown();
-			return;
-		}
 		
-		int x = player.getMapX();
-		int y = player.getMapY();
-		
-		if(y+1 >= Constants.HEIGHT)
-			return;
-		
-		if(player.getX() % Constants.MAP_X != 0)
-		{
-			if (level.getBlock(x, y+1).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
-				player.moveDown();
-		}
-		else
-		{
-			if (level.getBlock(x, y+1).isEmpty())
-				player.moveDown();
-		}
-	}
-	
-	public void moveLeft()
-	{
-		if (player.getX() % Constants.MAP_X != 0)
-		{
-			player.moveLeft();
-			return;
-		}
-		
-		int x = player.getMapX();
-		int y = player.getMapY();
-		
-		if(x-1 < 0)
-			return;
-		
-		if(player.getY() % Constants.MAP_Y != 0)
-		{
-			if (level.getBlock(x-1, y).isEmpty() && level.getBlock(x-1, y+1).isEmpty())
-				player.moveLeft();
-		}
-		else
-		{
-			if (level.getBlock(x-1, y).isEmpty())
-				player.moveLeft();
-		}
-	}
-	
-	public void moveRight()
-	{
-		if (player.getX() % Constants.MAP_X != 0)
-		{
+		else if (key == "right" && canMoveRight(player)) 
 			player.moveRight();
-			return;
-		}
 		
-		int x = player.getMapX();
-		int y = player.getMapY();
-		
-		if(x+1 >= Constants.WIDTH)
-			return;
-		
-		if(player.getY() % Constants.MAP_Y != 0)
-		{
-			if (level.getBlock(x+1, y).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
-				player.moveRight();
-		}
-		else
-		{
-			if (level.getBlock(x+1, y).isEmpty())
-				player.moveRight();
-		}
+		else if (key == "left" && canMoveLeft(player))
+			player.moveLeft();
 	}
 	
-	/////////////
-	/*
+//	public void moveUp()
+//	{
+//		if (player.getY() % Constants.MAP_Y != 0)
+//		{
+//			player.moveUp();
+//			return;
+//		}
+//		
+//		int x = player.getMapX();
+//		int y = player.getMapY();
+//		
+//		if(y-1 < 0)
+//			return;
+//		
+//		if(player.getX() % Constants.MAP_X != 0)
+//		{
+//			if (level.getBlock(x, y-1).isEmpty() && level.getBlock(x+1, y-1).isEmpty())
+//				player.moveUp();
+//		}
+//		else
+//		{
+//			if (level.getBlock(x, y-1).isEmpty())
+//				player.moveUp();
+//		}
+//	}
+//	
+//	public void moveDown()
+//	{
+//		if (player.getY() % Constants.MAP_Y != 0)
+//		{
+//			player.moveDown();
+//			return;
+//		}
+//		
+//		int x = player.getMapX();
+//		int y = player.getMapY();
+//		
+//		if(y+1 >= Constants.HEIGHT)
+//			return;
+//		
+//		if(player.getX() % Constants.MAP_X != 0)
+//		{
+//			if (level.getBlock(x, y+1).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
+//				player.moveDown();
+//		}
+//		else
+//		{
+//			if (level.getBlock(x, y+1).isEmpty())
+//				player.moveDown();
+//		}
+//	}
+//	
+//	public void moveLeft()
+//	{
+//		if (player.getX() % Constants.MAP_X != 0)
+//		{
+//			player.moveLeft();
+//			return;
+//		}
+//		
+//		int x = player.getMapX();
+//		int y = player.getMapY();
+//		
+//		if(x-1 < 0)
+//			return;
+//		
+//		if(player.getY() % Constants.MAP_Y != 0)
+//		{
+//			if (level.getBlock(x-1, y).isEmpty() && level.getBlock(x-1, y+1).isEmpty())
+//				player.moveLeft();
+//		}
+//		else
+//		{
+//			if (level.getBlock(x-1, y).isEmpty())
+//				player.moveLeft();
+//		}
+//	}
+//	
+//	public void moveRight()
+//	{
+//		if (player.getX() % Constants.MAP_X != 0)
+//		{
+//			player.moveRight();
+//			return;
+//		}
+//		
+//		int x = player.getMapX();
+//		int y = player.getMapY();
+//		
+//		if(x+1 >= Constants.WIDTH)
+//			return;
+//		
+//		if(player.getY() % Constants.MAP_Y != 0)
+//		{
+//			if (level.getBlock(x+1, y).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
+//				player.moveRight();
+//		}
+//		else
+//		{
+//			if (level.getBlock(x+1, y).isEmpty())
+//				player.moveRight();
+//		}
+//	}
+	
 	private boolean canMoveUp(Char c)
 	{
 		if (c.getY() % Constants.MAP_Y != 0)
@@ -336,86 +348,84 @@ public class Game implements Serializable
 		else
 		{
 			if (level.getBlock(x, y-1).isEmpty())
-				player.moveUp();
+				return true;
 		}
+		
+		return false;
 	}
 	
-	public void moveDown()
+	public boolean canMoveDown(Char c)
 	{
-		if (player.getY() % Constants.MAP_Y != 0)
-		{
-			player.moveDown();
-			return;
-		}
+		if (c.getY() % Constants.MAP_Y != 0)
+			return true;
 		
-		int x = player.getMapX();
-		int y = player.getMapY();
+		int x = c.getMapX();
+		int y = c.getMapY();
 		
 		if(y+1 >= Constants.HEIGHT)
-			return;
+			return false;;
 		
-		if(player.getX() % Constants.MAP_X != 0)
+		if(c.getX() % Constants.MAP_X != 0)
 		{
 			if (level.getBlock(x, y+1).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
-				player.moveDown();
+				return true;
 		}
 		else
 		{
 			if (level.getBlock(x, y+1).isEmpty())
-				player.moveDown();
+				return true;
 		}
+		
+		return false;
 	}
 	
-	public void moveLeft()
+	public boolean canMoveLeft(Char c)
 	{
-		if (player.getX() % Constants.MAP_X != 0)
-		{
-			player.moveLeft();
-			return;
-		}
+		if (c.getX() % Constants.MAP_X != 0)
+			return true;
 		
-		int x = player.getMapX();
-		int y = player.getMapY();
+		int x = c.getMapX();
+		int y = c.getMapY();
 		
 		if(x-1 < 0)
-			return;
+			return false;
 		
-		if(player.getY() % Constants.MAP_Y != 0)
+		if(c.getY() % Constants.MAP_Y != 0)
 		{
 			if (level.getBlock(x-1, y).isEmpty() && level.getBlock(x-1, y+1).isEmpty())
-				player.moveLeft();
+				return true;
 		}
 		else
 		{
 			if (level.getBlock(x-1, y).isEmpty())
-				player.moveLeft();
+				return true;
 		}
+		
+		return false;
 	}
 	
-	public void moveRight()
+	public boolean canMoveRight(Char c)
 	{
-		if (player.getX() % Constants.MAP_X != 0)
-		{
-			player.moveRight();
-			return;
-		}
+		if (c.getX() % Constants.MAP_X != 0)
+			return true;
 		
-		int x = player.getMapX();
-		int y = player.getMapY();
+		int x = c.getMapX();
+		int y = c.getMapY();
 		
 		if(x+1 >= Constants.WIDTH)
-			return;
+			return false;
 		
-		if(player.getY() % Constants.MAP_Y != 0)
+		if(c.getY() % Constants.MAP_Y != 0)
 		{
 			if (level.getBlock(x+1, y).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
-				player.moveRight();
+				return true;
 		}
 		else
 		{
 			if (level.getBlock(x+1, y).isEmpty())
-				player.moveRight();
+				return true;
 		}
+		
+		return false;
 	}
-	*/
 }

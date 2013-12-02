@@ -9,12 +9,10 @@ import com.game.Constants;
 import com.data_structure.block.Block;
 import com.level_handling.Level;
 
-public class Generator {
-
+public class Generator
+{
 	private static int width = Constants.WIDTH;
-	private static int height = Constants.HEIGHT;
-	
-	
+	private static int height = Constants.HEIGHT;	
 	
 	public static Level generate(String fileName)
 	{

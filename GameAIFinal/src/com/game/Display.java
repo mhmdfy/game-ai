@@ -93,16 +93,16 @@ public class Display extends PApplet
 		if (key == CODED) 
 		{
 			if (keyCode == UP) 
-				game.moveUp();
+				game.move("up");
 			
 			else if (keyCode == DOWN) 
-				game.moveDown();
+				game.move("down");
 			
 			else if (keyCode == RIGHT) 
-				game.moveRight();
+				game.move("right");
 			
 			else if (keyCode == LEFT) 
-				game.moveLeft();
+				game.move("left");
 		}
 	}
 	
