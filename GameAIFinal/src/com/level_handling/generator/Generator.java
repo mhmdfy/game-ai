@@ -27,7 +27,7 @@ public class Generator
 	public void verify(int x, int y, Level level)
 	{
 		Block currentBlock = level.getBlock(x, y);
-		if(!currentBlock.isEmpty())
+		if(currentBlock.isWall())
 		{
 			return;
 		}
@@ -45,7 +45,7 @@ public class Generator
 		{
 			for(int y = 0; y < height; y++)
 			{
-				if(level.getBlock(x, y).isEmpty() && !level.getBlock(x, y).isFlaged())
+				if(!level.getBlock(x, y).isWall() && !level.getBlock(x, y).isFlaged())
 				{
 					return false;
 				}
