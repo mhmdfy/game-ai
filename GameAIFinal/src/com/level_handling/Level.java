@@ -7,8 +7,8 @@ import com.data_structure.block.EmptyBlock;
 import com.game.Constants;
 
 
-public class Level implements Serializable {
-	
+public class Level implements Serializable 
+{	
 	private static final long serialVersionUID = 1813773854725251446L;
 	
 	private int width = Constants. WIDTH;

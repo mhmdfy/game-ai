@@ -3,7 +3,6 @@ import java.io.Serializable;
 
 public abstract class Block implements Serializable 
 {
-	
 	private static final long serialVersionUID = 8173885238036082385L;
 
 	private boolean flag = false;
@@ -17,15 +16,22 @@ public abstract class Block implements Serializable
 	{
 		flag = value;
 	}
-	public boolean isWall() {
+	
+	public boolean isWall() 
+	{
 		return false;
 	}
-	public boolean isBreakable() {
+	
+	public boolean isBreakable() 
+	{
 		return false;
 	}
-	public boolean isEmpty() {
+	
+	public boolean isEmpty() 
+	{
 		return false;
 	}
+	
 	public abstract String print();
 	
 }

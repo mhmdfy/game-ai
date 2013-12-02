@@ -28,7 +28,7 @@ public class AI extends Char
 		else
 		{
 			Random random = new Random();
-			nextMove = random.nextInt(3);
+			nextMove = random.nextInt(4);
 			timer = Constants.AI_TIMER;
 		}
 	}

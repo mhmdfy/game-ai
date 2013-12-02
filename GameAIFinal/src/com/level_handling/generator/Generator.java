@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.game.Constants;
-import com.data_structure.block.Block;
 import com.level_handling.Level;
 
 public class Generator
@@ -24,40 +23,42 @@ public class Generator
 		return level;
 	}
 	
-	public void verify(int x, int y, Level level)
-	{
-		Block currentBlock = level.getBlock(x, y);
-		if(currentBlock.isWall())
-		{
-			return;
-		}
-		currentBlock.setFlag(true);
-		verify(x - 1, y, level);
-		verify(x + 1, y, level);
-		verify(x, y - 1, level);
-		verify(x, y + 1, level);
-		return;
-	}
-	
 	public boolean valid(Level level)
 	{
+		floodFill(1, 1, level);
+		
 		for(int x = 0; x < width; x++)
 		{
 			for(int y = 0; y < height; y++)
 			{
 				if(!level.getBlock(x, y).isWall() && !level.getBlock(x, y).isFlaged())
-				{
 					return false;
-				}
 			}
 		}
 		return true;
 	}
 	
+	private void floodFill(int x, int y, Level level)
+	{
+		if(level.getBlock(x, y).isWall())
+		{
+			level.getBlock(x, y).setFlag(false);
+		}
+		else
+		{
+			level.getBlock(x, y).setFlag(true);
+			floodFill(x - 1, y, level);
+			floodFill(x + 1, y, level);
+			floodFill(x, y - 1, level);
+			floodFill(x, y + 1, level);
+		}
+	}
+	
 	private static void saveToFile(String name, Level level)
 	{
 		String path = Constants.LVL_PATH + name + Constants.LVL_EXT;
-		try {
+		try 
+		{
 			File file = new File(path);
 			
 			if(!file.exists())
@@ -77,7 +78,8 @@ public class Generator
 			
 			out.close();
 		}
-		catch(IOException e) {
+		catch(IOException e) 
+		{
 			e.printStackTrace();
 		}
 	}

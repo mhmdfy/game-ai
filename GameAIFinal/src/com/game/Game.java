@@ -125,6 +125,31 @@ public class Game implements Serializable
 		}
 	}
 	
+	public void move(String key)
+	{
+		if (key == "up" && canMoveUp(player))
+			player.moveUp();
+		
+		else if (key == "down" && canMoveDown(player)) 
+			player.moveDown();
+		
+		else if (key == "right" && canMoveRight(player)) 
+			player.moveRight();
+		
+		else if (key == "left" && canMoveLeft(player))
+			player.moveLeft();
+	}
+	
+	public void playerBomb()
+	{
+		if(player.canBomb())
+		{
+			player.addTimer(Constants.BOMB_TIMER);
+			Bomb bomb = new Bomb(player.getMapX(), player.getMapY());
+			bombs.add(bomb);
+		}
+	}
+	
 	private void moveAI(int i)
 	{
 		AI ai = enemies.get(i);		
@@ -139,6 +164,7 @@ public class Game implements Serializable
 			ai.moveRight();
 	}
 	
+	// TODO Refactor (maybe)
 	private void explode(int i)
 	{
 		Bomb bomb = bombs.remove(i);
@@ -200,135 +226,7 @@ public class Game implements Serializable
 		}
 	}
 	
-	public void playerBomb()
-	{
-		if(player.canBomb())
-		{
-			player.addTimer(Constants.BOMB_TIMER);
-			Bomb bomb = new Bomb(player.getMapX(), player.getMapY());
-			bombs.add(bomb);
-		}
-	}
-	
-	public void move(String key)
-	{
-		if (key == "up" && canMoveUp(player))
-			player.moveUp();
-		
-		else if (key == "down" && canMoveDown(player)) 
-			player.moveDown();
-		
-		else if (key == "right" && canMoveRight(player)) 
-			player.moveRight();
-		
-		else if (key == "left" && canMoveLeft(player))
-			player.moveLeft();
-	}
-	
-//	public void moveUp()
-//	{
-//		if (player.getY() % Constants.MAP_Y != 0)
-//		{
-//			player.moveUp();
-//			return;
-//		}
-//		
-//		int x = player.getMapX();
-//		int y = player.getMapY();
-//		
-//		if(y-1 < 0)
-//			return;
-//		
-//		if(player.getX() % Constants.MAP_X != 0)
-//		{
-//			if (level.getBlock(x, y-1).isEmpty() && level.getBlock(x+1, y-1).isEmpty())
-//				player.moveUp();
-//		}
-//		else
-//		{
-//			if (level.getBlock(x, y-1).isEmpty())
-//				player.moveUp();
-//		}
-//	}
-//	
-//	public void moveDown()
-//	{
-//		if (player.getY() % Constants.MAP_Y != 0)
-//		{
-//			player.moveDown();
-//			return;
-//		}
-//		
-//		int x = player.getMapX();
-//		int y = player.getMapY();
-//		
-//		if(y+1 >= Constants.HEIGHT)
-//			return;
-//		
-//		if(player.getX() % Constants.MAP_X != 0)
-//		{
-//			if (level.getBlock(x, y+1).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
-//				player.moveDown();
-//		}
-//		else
-//		{
-//			if (level.getBlock(x, y+1).isEmpty())
-//				player.moveDown();
-//		}
-//	}
-//	
-//	public void moveLeft()
-//	{
-//		if (player.getX() % Constants.MAP_X != 0)
-//		{
-//			player.moveLeft();
-//			return;
-//		}
-//		
-//		int x = player.getMapX();
-//		int y = player.getMapY();
-//		
-//		if(x-1 < 0)
-//			return;
-//		
-//		if(player.getY() % Constants.MAP_Y != 0)
-//		{
-//			if (level.getBlock(x-1, y).isEmpty() && level.getBlock(x-1, y+1).isEmpty())
-//				player.moveLeft();
-//		}
-//		else
-//		{
-//			if (level.getBlock(x-1, y).isEmpty())
-//				player.moveLeft();
-//		}
-//	}
-//	
-//	public void moveRight()
-//	{
-//		if (player.getX() % Constants.MAP_X != 0)
-//		{
-//			player.moveRight();
-//			return;
-//		}
-//		
-//		int x = player.getMapX();
-//		int y = player.getMapY();
-//		
-//		if(x+1 >= Constants.WIDTH)
-//			return;
-//		
-//		if(player.getY() % Constants.MAP_Y != 0)
-//		{
-//			if (level.getBlock(x+1, y).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
-//				player.moveRight();
-//		}
-//		else
-//		{
-//			if (level.getBlock(x+1, y).isEmpty())
-//				player.moveRight();
-//		}
-//	}
-	
+	// TODO Refacter to canMove(Char, String)
 	private boolean canMoveUp(Char c)
 	{
 		if (c.getY() % Constants.MAP_Y != 0)
