@@ -9,33 +9,72 @@ public class AI extends Char
 	private static final long serialVersionUID = -5636317255908578346L;
 
 	private int nextMove;
-	private int timer;
+	private int moveTimer;
+	private int stepTimer;
 	
 	public AI(int x, int y) 
 	{
 		super(x, y);
-		timer = 0;
+		moveTimer = 0;
 		nextMove = 0;
+		stepTimer = 0;
 	}
 
 	@Override
 	public void tick() 
 	{
-		if(timer > 0)
+		if(stepTimer > 0)
 		{
-			timer = timer - 1;
+			stepTimer = stepTimer - 1;
+		}
+		else
+		{
+			stepTimer = Constants.STEP_TIMER;
+		}
+		
+		if(moveTimer > 0)
+		{
+			moveTimer = moveTimer - 1;
 		}
 		else
 		{
 			Random random = new Random();
 			nextMove = random.nextInt(4);
-			timer = Constants.AI_TIMER;
+			moveTimer = Constants.MOVE_TIMER;
 		}
 	}
 	
 	public int getNextMove()
 	{
 		return nextMove;
+	}
+	
+	@Override
+	public void moveUp()
+	{
+		if (stepTimer == 0)
+			super.moveUp();
+	}
+	
+	@Override
+	public void moveDown()
+	{
+		if (stepTimer == 0)
+			super.moveDown();
+	}
+	
+	@Override
+	public void moveLeft()
+	{
+		if (stepTimer == 0)
+			super.moveLeft();
+	}
+	
+	@Override
+	public void moveRight()
+	{
+		if (stepTimer == 0)
+			super.moveRight();
 	}
 
 }

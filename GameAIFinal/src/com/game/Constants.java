@@ -23,5 +23,6 @@ public class Constants
 	public final static String GAME_WIN = "win";
 	
 	public final static int ENEMY_NUM = 6;
-	public final static int AI_TIMER = 100;
+	public final static int MOVE_TIMER = 100;
+	public final static int STEP_TIMER = 25;
 }

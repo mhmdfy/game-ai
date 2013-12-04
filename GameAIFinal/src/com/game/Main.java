@@ -18,7 +18,7 @@ public class Main
 		
 		Level level = new Level();
 		
-		if(fileExists(args[0]))
+		if(!args[0].equals("random") && fileExists(args[0]))
 			level = Parser.parse(args[0]);
 		else
 			level = Generator.generate(args[0]);

@@ -96,6 +96,10 @@ public class Game implements Serializable
 		player.tick();
 		for(int i = 0; i < enemies.size(); i++)
 		{
+			if(enemies.get(i).getMapX() == player.getMapX() 
+				&& enemies.get(i).getMapY() == player.getMapY())
+				player.die();
+				
 			enemies.get(i).tick();
 			moveAI(i);
 		}
@@ -117,7 +121,7 @@ public class Game implements Serializable
 			for(int j = enemies.size()-1; j >= 0; j--)
 			{
 				if(enemies.get(j).getMapX() == x && enemies.get(j).getMapY() == y)
-					enemies.remove(j);	
+					enemies.remove(j);
 			}
 			
 			if(flames.get(i).tick())
@@ -240,12 +244,12 @@ public class Game implements Serializable
 		
 		if(c.getX() % Constants.MAP_X != 0)
 		{
-			if (level.getBlock(x, y-1).isEmpty() && level.getBlock(x+1, y-1).isEmpty())
+			if (freeBlock(x, y-1) && freeBlock(x+1, y-1))
 				return true;
 		}
 		else
 		{
-			if (level.getBlock(x, y-1).isEmpty())
+			if (freeBlock(x, y-1))
 				return true;
 		}
 		
@@ -265,12 +269,12 @@ public class Game implements Serializable
 		
 		if(c.getX() % Constants.MAP_X != 0)
 		{
-			if (level.getBlock(x, y+1).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
+			if (freeBlock(x, y+1) && freeBlock(x+1, y+1))
 				return true;
 		}
 		else
 		{
-			if (level.getBlock(x, y+1).isEmpty())
+			if (freeBlock(x, y+1))
 				return true;
 		}
 		
@@ -290,12 +294,12 @@ public class Game implements Serializable
 		
 		if(c.getY() % Constants.MAP_Y != 0)
 		{
-			if (level.getBlock(x-1, y).isEmpty() && level.getBlock(x-1, y+1).isEmpty())
+			if (freeBlock(x-1, y) && freeBlock(x-1, y+1))
 				return true;
 		}
 		else
 		{
-			if (level.getBlock(x-1, y).isEmpty())
+			if (freeBlock(x-1, y))
 				return true;
 		}
 		
@@ -315,15 +319,27 @@ public class Game implements Serializable
 		
 		if(c.getY() % Constants.MAP_Y != 0)
 		{
-			if (level.getBlock(x+1, y).isEmpty() && level.getBlock(x+1, y+1).isEmpty())
+			if (freeBlock(x+1, y) && freeBlock(x+1, y+1))
 				return true;
 		}
 		else
 		{
-			if (level.getBlock(x+1, y).isEmpty())
+			if (freeBlock(x+1, y))
 				return true;
 		}
 		
 		return false;
+	}
+	
+	public boolean freeBlock(int x, int y)
+	{
+		for(Bomb b: bombs)
+		{
+			if(b.getX() == x && b.getY() == y)
+				return false;
+		}
+		
+		return level.getBlock(x, y).isEmpty();
+		
 	}
 }
