@@ -25,6 +25,10 @@ public class Generator
 	
 	public boolean isValid(Level level)
 	{
+		if(!(level.getBlock(1, 1).isEmpty() && level.getBlock(1, 2).isEmpty()
+			&& level.getBlock(2, 1).isEmpty()))
+			return false;
+		
 		floodFill(1, 1, level);
 		
 		for(int x = 0; x < width; x++)
