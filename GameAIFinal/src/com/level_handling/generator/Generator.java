@@ -24,8 +24,9 @@ public class Generator
 		return level;
 	}
 	
-	public static Level addEdges(Level level)
+	public static Level emptyLevel()
 	{
+		Level level = new Level();
 		for(int i = 0; i < Constants.WIDTH; i++)
 		{
 			for(int j = 0; j < Constants.HEIGHT; j++)

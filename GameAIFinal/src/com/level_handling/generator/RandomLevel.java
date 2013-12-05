@@ -13,13 +13,13 @@ public class RandomLevel {
 
 		public static Level create()
 		{
-			Level level = Generator.addEdges(new Level());
+			Level level = Generator.emptyLevel();
 			Random random = new Random();
 			for(int i = 1; i < Constants.WIDTH-1; i++)
 			{
 				for(int j = 1; j < Constants.HEIGHT-1; j++)
 				{
-					int type = random.nextInt(2);
+					int type = random.nextInt(4);
 
 					if(type == 0)
 					{

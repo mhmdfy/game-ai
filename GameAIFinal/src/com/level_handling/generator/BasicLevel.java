@@ -12,7 +12,7 @@ public class BasicLevel
 {
 	public static Level create()
 	{
-		Level level = Generator.addEdges(new Level());
+		Level level = Generator.emptyLevel();
 		Random random = new Random();
 		
 		for(int i = 1; i < Constants.WIDTH-1; i++)
