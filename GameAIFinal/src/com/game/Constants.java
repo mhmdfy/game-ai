@@ -29,5 +29,5 @@ public class Constants
 	// AI Constants
 	public final static int ENEMY_NUM = 6;
 	public final static int MOVE_TIMER = 100;
-	public final static int STEP_TIMER = 25;
+	public final static int STEP_TIMER = 20;
 }
