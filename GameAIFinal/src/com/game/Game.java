@@ -48,7 +48,8 @@ public class Game implements Serializable
 			{
 				x = random.nextInt(Constants.WIDTH);
 				y = random.nextInt(Constants.HEIGHT-4) + 4;
-			}while(!level.getBlock(x, y).isEmpty());
+			}
+			while(!level.getBlock(x, y).isEmpty());
 			
 			list.add(new AI(x*Constants.MAP_X, y*Constants.MAP_Y));
 		}
