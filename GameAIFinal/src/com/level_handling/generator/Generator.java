@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import com.data_structure.block.Block;
 import com.game.Constants;
 import com.level_handling.Level;
 
@@ -29,7 +31,10 @@ public class Generator
 			&& level.getBlock(2, 1).isEmpty()))
 			return false;
 		
-		floodFill(1, 1, level);
+		int[] startCoords = {1, 1};
+		ArrayList<int[]> list = new ArrayList<int[]>();
+		list.add(startCoords);
+		queueFloodFill(list, new ArrayList<int[]>(), level);
 		
 		for(int x = 0; x < width; x++)
 		{
@@ -40,6 +45,44 @@ public class Generator
 			}
 		}
 		return true;
+	}
+	
+	private static void queueFloodFill(ArrayList<int[]> queue, ArrayList<int[]> checked, Level level)
+	{
+		ArrayList<int[]> newQueue = new ArrayList<int[]>();
+		
+		for(int[] coords : queue)
+		{
+			int x = coords[0];
+			int y = coords[1];
+			
+			checked.add(new int[]{x, y});
+			
+			if(level.getBlock(x, y).isWall())
+			{
+				level.getBlock(x, y).setFlag(false);
+			}
+			else
+			{
+				level.getBlock(x, y).setFlag(true);
+			
+				if (x > 0 && !checked.contains(new int[]{x - 1, y}))
+					newQueue.add(new int[]{x - 1, y});
+				if (x <= Constants.WIDTH && !checked.contains(new int[]{x + 1, y}))
+					newQueue.add(new int[]{x + 1, y});
+				if (y > 0 && !checked.contains(new int[]{x, y - 1}))
+					newQueue.add(new int[]{x, y - 1});
+				if (y <= Constants.HEIGHT && !checked.contains(new int[]{x, y + 1}))
+					newQueue.add(new int[]{x, y + 1});
+			}
+		}
+		
+//		System.out.print("The array: ");
+//		for (int[] coords : newQueue)
+//			System.out.print("X= "+ coords[0] + " Y="+ coords[1] + "\t");
+//		System.out.println();
+		
+		queueFloodFill(newQueue, checked, level);
 	}
 	
 	private static void floodFill(int x, int y, Level level)

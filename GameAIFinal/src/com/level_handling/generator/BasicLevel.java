@@ -14,6 +14,7 @@ public class BasicLevel
 	{
 		Level level = new Level();
 		Random random = new Random();
+		
 		for(int i = 0; i < Constants.WIDTH; i++)
 		{
 			for(int j = 0; j < Constants.HEIGHT; j++)
@@ -39,6 +40,9 @@ public class BasicLevel
 			}
 		}
 		
-		return level;
+		if (Generator.isValid(level))
+			return level;
+		else
+			return create();
 	}
 }

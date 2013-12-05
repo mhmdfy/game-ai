@@ -88,12 +88,12 @@ public class Level implements Serializable
 	private void validateX(int x) 
 	{
 		if (x < 0 || x >= width)
-        	throw new IllegalArgumentException("X has to be between 0-" + (width-1));
+        	throw new IllegalArgumentException("X has to be between 0-" + (width-1) + " Give: " + x);
 	}
 	
 	private void validateY(int y)
 	{
 		if (y < 0 || y >= height) 
-        	throw new IllegalArgumentException("Y has to be between 0-" + (height-1));
+        	throw new IllegalArgumentException("Y has to be between 0-" + (height-1) + " Give: " + y);
 	}
 }
