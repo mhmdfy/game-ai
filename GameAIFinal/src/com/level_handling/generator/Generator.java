@@ -42,6 +42,26 @@ public class Generator
 		return true;
 	}
 	
+	private static void floodFillFix(int x, int y, Level level)
+	{
+		if(invalidXY(x, y))
+		{
+			return;
+		}
+		if(!level.getBlock(x, y).isFlaged() && !level.getBlock(x, y).isWall())
+		{
+			level.getBlock(x, y).setFlag(true);
+			floodFillFix(x - 1, y, level);
+			floodFillFix(x + 1, y, level);
+			floodFillFix(x, y - 1, level);
+			floodFillFix(x, y + 1, level);
+		}
+		else
+		{
+			return;
+		}
+	}
+	
 	private static void floodFill(int x, int y, Level level)
 	{
 		if (invalidXY(x, y))
