@@ -22,7 +22,6 @@ public class Main
 			level = Parser.parse(args[0]);
 		else
 			level = Generator.generate(args[0]);
-		level.printLevel();
 		
 		Game game = new Game(level);
 		

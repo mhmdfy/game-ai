@@ -13,17 +13,14 @@ public class RandomLevel {
 
 		public static Level create()
 		{
-			Level level = new Level();
+			Level level = Generator.addEdges(new Level());
 			Random random = new Random();
-			for(int i = 0; i < Constants.WIDTH; i++)
+			for(int i = 1; i < Constants.WIDTH-1; i++)
 			{
-				for(int j = 0; j < Constants.HEIGHT; j++)
+				for(int j = 1; j < Constants.HEIGHT-1; j++)
 				{
 					int type = random.nextInt(2);
-					if(i == 0 || j == 0 || i == 20 || j == 20)
-					{
-						level.setBlock(i, j, new WallBlock());
-					}
+
 					if(type == 0)
 					{
 						level.setBlock(i, j, new WallBlock());
@@ -36,11 +33,11 @@ public class RandomLevel {
 					{
 						level.setBlock(i, j, new EmptyBlock());
 					}
-					if(!Generator.isValid(level));
+					
+					if(!Generator.isValid(level))
 					{
 						level.setBlock(i, j, new EmptyBlock());
-					}
-					
+					}					
 				}
 			}
 			return level;

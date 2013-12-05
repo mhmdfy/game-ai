@@ -68,6 +68,15 @@ public class Level implements Serializable
 		}
 	}
 	
+	public void resetFlag()
+	{
+		for(Block[] list : level)
+			for(Block b : list)
+			{
+				b.setFlag(false);
+			}
+	}
+	
 	private void initLevel()
 	{
 		for(int i = 0; i < width; i++)
