@@ -23,7 +23,7 @@ public class Generator
 		return level;
 	}
 	
-	public boolean isValid(Level level)
+	public static boolean isValid(Level level)
 	{
 		if(!(level.getBlock(1, 1).isEmpty() && level.getBlock(1, 2).isEmpty()
 			&& level.getBlock(2, 1).isEmpty()))
@@ -42,8 +42,11 @@ public class Generator
 		return true;
 	}
 	
-	private void floodFill(int x, int y, Level level)
+	private static void floodFill(int x, int y, Level level)
 	{
+		if (invalidXY(x, y))
+			return;
+		
 		if(level.getBlock(x, y).isWall())
 		{
 			level.getBlock(x, y).setFlag(false);
@@ -51,11 +54,23 @@ public class Generator
 		else
 		{
 			level.getBlock(x, y).setFlag(true);
+			
 			floodFill(x - 1, y, level);
 			floodFill(x + 1, y, level);
 			floodFill(x, y - 1, level);
 			floodFill(x, y + 1, level);
 		}
+	}
+	
+	private static boolean invalidXY(int x, int y)
+	{
+		if ( x < 0 || x >= Constants.WIDTH)
+			return true;
+		
+		if ( y < 0 || y >= Constants.HEIGHT)
+			return true;
+		
+		return false;
 	}
 	
 	private static void saveToFile(String name, Level level)
