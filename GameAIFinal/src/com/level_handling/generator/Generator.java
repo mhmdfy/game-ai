@@ -23,7 +23,7 @@ public class Generator
 		return level;
 	}
 	
-	public boolean valid(Level level)
+	public boolean isValid(Level level)
 	{
 		floodFill(1, 1, level);
 		
