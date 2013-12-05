@@ -4,10 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.game.Constants;
-import com.level_handling.Coords;
 import com.level_handling.Level;
 
 public class Generator
@@ -31,11 +29,7 @@ public class Generator
 			&& level.getBlock(2, 1).isEmpty()))
 			return false;
 		
-		ArrayList<Coords> list = new ArrayList<Coords>();
-		list.add(new Coords(1, 1));
-		queueFloodFill(list, new ArrayList<Coords>(), level);
-		
-		
+		floodFill(1, 1, level);
 		
 		for(int x = 0; x < width; x++)
 		{
@@ -48,46 +42,7 @@ public class Generator
 		return true;
 	}
 	
-	private static void queueFloodFill(ArrayList<Coords> queue, ArrayList<Coords> checked, Level level)
-	{	
-		ArrayList<Coords> newQueue = new ArrayList<Coords>();
-		
-		for(Coords coords : queue)
-		{
-			
-			if(checked.contains(coords))
-				continue;
-				
-			int x = coords.getX();
-			int y = coords.getY();
-			checked.add(coords);
-			
-			if(level.getBlock(x, y).isWall())
-			{
-				level.getBlock(x, y).setFlag(false);
-			}
-			else
-			{
-				level.getBlock(x, y).setFlag(true);
-			
-				if (x > 0)
-					newQueue.add(new Coords(x - 1, y));
-				if (x <= Constants.WIDTH)
-					newQueue.add(new Coords(x + 1, y));
-				if (y > 0)
-					newQueue.add(new Coords(x, y - 1));
-				if (y <= Constants.HEIGHT)
-					newQueue.add(new Coords(x, y + 1));
-			}
-		}
-		
-		if(newQueue.isEmpty())
-			return;
-		
-		queueFloodFill(newQueue, checked, level);
-	}
-	
-	private static void floodFillFix(int x, int y, Level level)
+	private static void floodFill(int x, int y, Level level)
 	{
 		if(invalidXY(x, y))
 		{
@@ -96,34 +51,14 @@ public class Generator
 		if(!level.getBlock(x, y).isFlaged() && !level.getBlock(x, y).isWall())
 		{
 			level.getBlock(x, y).setFlag(true);
-			floodFillFix(x - 1, y, level);
-			floodFillFix(x + 1, y, level);
-			floodFillFix(x, y - 1, level);
-			floodFillFix(x, y + 1, level);
-		}
-		else
-		{
-			return;
-		}
-	}
-	
-	private static void floodFill(int x, int y, Level level)
-	{
-		if (invalidXY(x, y))
-			return;
-		
-		if(level.getBlock(x, y).isWall())
-		{
-			level.getBlock(x, y).setFlag(false);
-		}
-		else
-		{
-			level.getBlock(x, y).setFlag(true);
-			
 			floodFill(x - 1, y, level);
 			floodFill(x + 1, y, level);
 			floodFill(x, y - 1, level);
 			floodFill(x, y + 1, level);
+		}
+		else
+		{
+			return;
 		}
 	}
 	
