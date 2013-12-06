@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 import com.game.Constants;
 import com.level_handling.Level;
@@ -15,9 +16,16 @@ public class Generator
 	
 	public static Level generate(String fileName)
 	{
-		Level level = new Level();
+		Level level;
+		Random random = new Random();
+		int type = random.nextInt(99) + 1; // 1-100
 		
-		level = RoomLevel.create();
+		if (type < 20)
+			level = BasicLevel.create();
+		else if (type < 50)
+			level = RandomLevel.create();
+		else
+			level = RoomLevel.create();
 		
 		saveToFile(fileName, level);
 		return level;
