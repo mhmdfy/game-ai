@@ -20,12 +20,36 @@ public class RoomLevel
 			for(int j = 0; j < Constants.HEIGHT -1; j+=5)
 			{
 				createRoom(i, j, level);
-				while(!isValid(level))
+				while(!Generator.isValid(level))
 				{
 					createRoom(i, j, level);
 				}
 			}
 		}
+		addBreakables(level);
 		return level;
+	}
+	
+	private static void addBreakables(Level level)
+	{
+		Random random = new Random();
+		for(int x = 0; x < Constants.WIDTH; x++)
+		{
+			for(int y = 0; y < Constants.HEIGHT; y++)
+			{
+				int type = random.nextInt(3);
+				if(level.getBlock(x, y).isEmpty())
+				{
+					if(type == 2)
+					{
+						level.setBlock(x, y, new BreakableBlock());
+					}
+					//Make sure start area is empty
+					level.setBlock(1, 1, new EmptyBlock());
+					level.setBlock(1, 2, new EmptyBlock());
+					level.setBlock(2, 1, new EmptyBlock());
+				}
+			}
+		}
 	}
 }
