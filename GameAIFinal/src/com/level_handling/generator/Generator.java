@@ -17,7 +17,7 @@ public class Generator
 	{
 		Level level = new Level();
 		
-		level = RandomLevel.create();
+		level = RoomLevel.create();
 		
 		saveToFile(fileName, level);
 		return level;

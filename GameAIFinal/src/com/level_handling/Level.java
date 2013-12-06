@@ -3,6 +3,7 @@ package com.level_handling;
 import java.io.Serializable;
 
 import com.data_structure.block.Block;
+import com.data_structure.block.BreakableBlock;
 import com.data_structure.block.EmptyBlock;
 import com.data_structure.block.WallBlock;
 import com.game.Constants;
@@ -21,6 +22,11 @@ public class Level implements Serializable
 	{
 		level = new Block[width][height];
 		initLevel();
+	}
+	
+	public Level(Level other)
+	{
+		level = createCopy(other);
 	}
 	
 	public Block getBlock(int x, int y)
@@ -76,6 +82,26 @@ public class Level implements Serializable
 			{
 				b.setFlag(false);
 			}
+	}
+	
+	private Block[][] createCopy(Level other)
+	{
+		Block[][] lvl = new Block[width][height];
+		
+		for(int i = 0; i < width; i++)
+		{
+			for(int j = 0; j < height; j++)
+			{
+				if(other.getBlock(i, j).isWall())
+					lvl[i][j] = new WallBlock();
+				else if (other.getBlock(i, j).isBreakable())
+					lvl[i][j] = new BreakableBlock();
+				else
+					lvl[i][j] = new EmptyBlock();
+			}
+		}
+		
+		return lvl;
 	}
 	
 	private void initLevel()
