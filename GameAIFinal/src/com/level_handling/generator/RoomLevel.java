@@ -15,22 +15,11 @@ public class RoomLevel
 	{
 		Random random = new Random();
 		Level level = new Level();
-		for(int i = 0; i < Constants.WIDTH; i+=4)
+		for(int i = 0; i < Constants.WIDTH; i+=5)
 		{
-			for(int j = 0; j < Constants.HEIGHT; j+=4)
+			for(int j = 0; j < Constants.HEIGHT; j+=5)
 			{
-				level.setBlock(i, j, new WallBlock());
-				for(int k = i+1; k < i+4; k++)
-				{
-					for(int l = j+1; l < j+4; l++)
-					{
-						int type = random.nextInt(2);
-						if(type == 1)
-						{
-							level.setBlock(k, l, new EmptyBlock());
-						}
-					}
-				}
+				
 			}
 		}
 		return level;

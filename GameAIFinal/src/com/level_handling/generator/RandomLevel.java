@@ -9,11 +9,11 @@ import com.game.Constants;
 import com.level_handling.Level;
 import com.level_handling.generator.Generator;
 
-public class RandomLevel {
-
+public class RandomLevel 
+{
 		public static Level create()
 		{
-			Level level = Generator.emptyLevel();
+			Level level = new Level();
 			Random random = new Random();
 			for(int i = 1; i < Constants.WIDTH-1; i++)
 			{
