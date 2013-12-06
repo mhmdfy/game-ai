@@ -40,7 +40,11 @@ public class RoomLevel
 				int type = random.nextInt(3);
 				if(level.getBlock(x, y).isEmpty())
 				{
-					if(type == 2)
+					if((x%5 == 0 || y%5 == 0) && type != 0)
+					{
+						level.setBlock(x, y, new BreakableBlock());
+					}
+					else if(type == 2)
 					{
 						level.setBlock(x, y, new BreakableBlock());
 					}
