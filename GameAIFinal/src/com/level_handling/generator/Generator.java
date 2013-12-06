@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.data_structure.block.WallBlock;
 import com.game.Constants;
 import com.level_handling.Level;
 
@@ -21,23 +20,6 @@ public class Generator
 		level = RandomLevel.create();
 		
 		saveToFile(fileName, level);
-		return level;
-	}
-	
-	public static Level emptyLevel()
-	{
-		Level level = new Level();
-		for(int i = 0; i < Constants.WIDTH; i++)
-		{
-			for(int j = 0; j < Constants.HEIGHT; j++)
-			{
-				
-				if(i == 0 || j == 0 || i == Constants.WIDTH - 1 || j == Constants.HEIGHT - 1)
-				{
-					level.setBlock(i, j, new WallBlock());
-				}
-			}
-		}
 		return level;
 	}
 	

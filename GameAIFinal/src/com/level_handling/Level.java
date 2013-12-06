@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.data_structure.block.Block;
 import com.data_structure.block.EmptyBlock;
+import com.data_structure.block.WallBlock;
 import com.game.Constants;
 
 
@@ -83,7 +84,10 @@ public class Level implements Serializable
 		{
 			for(int j = 0; j < height; j++)
 			{
-				level[i][j] = new EmptyBlock();
+				if(i == 0 || j == 0 || i == Constants.WIDTH - 1 || j == Constants.HEIGHT - 1)
+					level[i][j] = new WallBlock();
+				else
+					level[i][j] = new EmptyBlock();
 			}
 		}
 	}
