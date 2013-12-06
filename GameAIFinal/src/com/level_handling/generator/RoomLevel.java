@@ -48,12 +48,11 @@ public class RoomLevel
 					{
 						level.setBlock(x, y, new BreakableBlock());
 					}
-					//Make sure start area is empty
-					level.setBlock(1, 1, new EmptyBlock());
-					level.setBlock(1, 2, new EmptyBlock());
-					level.setBlock(2, 1, new EmptyBlock());
 				}
 			}
 		}
+		level.setBlock(1, 1, new EmptyBlock());
+		level.setBlock(1, 2, new EmptyBlock());
+		level.setBlock(2, 1, new EmptyBlock());
 	}
 }
