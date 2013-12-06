@@ -14,17 +14,14 @@ public class BasicLevel
 	{
 		Level level = new Level();
 		Random random = new Random();
-		for(int i = 0; i < Constants.WIDTH; i++)
+		
+		for(int i = 1; i < Constants.WIDTH-1; i++)
 		{
-			for(int j = 0; j < Constants.HEIGHT; j++)
+			for(int j = 1; j < Constants.HEIGHT-1; j++)
 			{
 				int type = random.nextInt(4);
 				
-				if(i == 0 || j == 0 || i == Constants.WIDTH - 1 || j == Constants.HEIGHT - 1)
-				{
-					level.setBlock(i, j, new WallBlock());
-				}
-				else if(i % 2 == 0 && j % 2 == 0)
+				if(i % 2 == 0 && j % 2 == 0)
 				{
 					level.setBlock(i, j, new WallBlock());
 				}
@@ -39,6 +36,9 @@ public class BasicLevel
 			}
 		}
 		
-		return level;
+		if (Generator.isValid(level))
+			return level;
+		else
+			return create();
 	}
 }

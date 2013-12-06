@@ -3,12 +3,14 @@ package com.level_handling;
 import java.io.Serializable;
 
 import com.data_structure.block.Block;
+import com.data_structure.block.BreakableBlock;
 import com.data_structure.block.EmptyBlock;
+import com.data_structure.block.WallBlock;
 import com.game.Constants;
 
 
-public class Level implements Serializable {
-	
+public class Level implements Serializable 
+{	
 	private static final long serialVersionUID = 1813773854725251446L;
 	
 	private int width = Constants. WIDTH;
@@ -20,6 +22,11 @@ public class Level implements Serializable {
 	{
 		level = new Block[width][height];
 		initLevel();
+	}
+	
+	public Level(Level other)
+	{
+		level = createCopy(other);
 	}
 	
 	public Block getBlock(int x, int y)
@@ -68,13 +75,45 @@ public class Level implements Serializable {
 		}
 	}
 	
+	public void resetFlag()
+	{
+		for(Block[] list : level)
+			for(Block b : list)
+			{
+				b.setFlag(false);
+			}
+	}
+	
+	private Block[][] createCopy(Level other)
+	{
+		Block[][] lvl = new Block[width][height];
+		
+		for(int i = 0; i < width; i++)
+		{
+			for(int j = 0; j < height; j++)
+			{
+				if(other.getBlock(i, j).isWall())
+					lvl[i][j] = new WallBlock();
+				else if (other.getBlock(i, j).isBreakable())
+					lvl[i][j] = new BreakableBlock();
+				else
+					lvl[i][j] = new EmptyBlock();
+			}
+		}
+		
+		return lvl;
+	}
+	
 	private void initLevel()
 	{
 		for(int i = 0; i < width; i++)
 		{
 			for(int j = 0; j < height; j++)
 			{
-				level[i][j] = new EmptyBlock();
+				if(i == 0 || j == 0 || i == Constants.WIDTH - 1 || j == Constants.HEIGHT - 1)
+					level[i][j] = new WallBlock();
+				else
+					level[i][j] = new EmptyBlock();
 			}
 		}
 	}
@@ -88,12 +127,12 @@ public class Level implements Serializable {
 	private void validateX(int x) 
 	{
 		if (x < 0 || x >= width)
-        	throw new IllegalArgumentException("X has to be between 0-" + (width-1));
+        	throw new IllegalArgumentException("X has to be between 0-" + (width-1) + " Give: " + x);
 	}
 	
 	private void validateY(int y)
 	{
 		if (y < 0 || y >= height) 
-        	throw new IllegalArgumentException("Y has to be between 0-" + (height-1));
+        	throw new IllegalArgumentException("Y has to be between 0-" + (height-1) + " Give: " + y);
 	}
 }

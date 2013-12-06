@@ -4,28 +4,19 @@ import java.io.Serializable;
 
 import com.game.Constants;
 
-public class Bomb implements Serializable {
+public class Flame implements Serializable{
 
-	private static final long serialVersionUID = -906756254912683591L;
+	private static final long serialVersionUID = 5614731087276259081L;
 
 	private int x;
 	private int y;
 	private int timer;
-	private int range;
 	
-	public Bomb(int x, int y)
+	public Flame(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.timer = Constants.BOMB_TIMER;
-		this.range = Constants.BOMB_RANGE;
-	}
-	
-	public Bomb(int x, int y, int timer)
-	{
-		this.x = x;
-		this.y = y;
-		this.timer = timer;
+		this.timer = Constants.FLAME_TIMER;
 	}
 	
 	public int getX()
@@ -38,11 +29,6 @@ public class Bomb implements Serializable {
 		return y;
 	}
 	
-	public int getRange()
-	{
-		return range;
-	}
-	
 	public boolean tick()
 	{
 		if(timer > 0)
@@ -53,4 +39,5 @@ public class Bomb implements Serializable {
 		else
 			return true;
 	}
+
 }
