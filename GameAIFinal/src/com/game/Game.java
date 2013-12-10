@@ -149,7 +149,7 @@ public class Game implements Serializable
 	{
 		if(player.canBomb())
 		{
-			player.addTimer(Constants.BOMB_TIMER);
+			player.setTime(Constants.BOMB_TIMER);
 			Bomb bomb = new Bomb(player.getMapX(), player.getMapY());
 			bombs.add(bomb);
 		}

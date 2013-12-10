@@ -8,10 +8,14 @@ public class AI extends Char
 {
 	private static final long serialVersionUID = -5636317255908578346L;
 
-	private int nextMove;
-	private int moveTimer;
-	private int stepTimer;
+	private int nextMove; // Next move the AI should take.
+	private int moveTimer; // The move timer for the AI to change direction.
+	private int stepTimer; // the step timer for the AI.
 	
+	/**
+	 * Constructor for AI enemy. Takes an x and a y coords,
+	 * and creates an AI at that location with Constants values.
+	 */
 	public AI(int x, int y) 
 	{
 		super(x, y);
@@ -20,6 +24,9 @@ public class AI extends Char
 		stepTimer = 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void tick() 
 	{
@@ -44,11 +51,22 @@ public class AI extends Char
 		}
 	}
 	
+	/**
+	 * Gets the next move of the AI.
+	 * Up:    0
+	 * Down:  1
+	 * Left:  2
+	 * Right: 3
+	 * @return The next move.
+	 */
 	public int getNextMove()
 	{
 		return nextMove;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void moveUp()
 	{
@@ -56,6 +74,9 @@ public class AI extends Char
 			super.moveUp();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void moveDown()
 	{
@@ -63,6 +84,9 @@ public class AI extends Char
 			super.moveDown();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void moveLeft()
 	{
@@ -70,6 +94,9 @@ public class AI extends Char
 			super.moveLeft();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void moveRight()
 	{
