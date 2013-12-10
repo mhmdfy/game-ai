@@ -10,6 +10,11 @@ import com.level_handling.Level;
 
 public class BasicLevel 
 {
+	/**
+	 * Creates a level with "classic" bomberman structure of checkerboard walls
+	 * and random breakables throughout map.
+	 * @return complete classic bomberman level
+	 */
 	public static Level create()
 	{
 		Level level = new Level();

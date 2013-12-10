@@ -18,17 +18,27 @@ public class Level implements Serializable
 	
 	private Block[][] level;
 	
+	/**
+	 * Creates level which is double array of Blocks
+	 */
 	public Level() 
 	{
 		level = new Block[width][height];
 		initLevel();
 	}
 	
+	/**
+	 * Creates a copy of a level
+	 */
 	public Level(Level other)
 	{
 		level = createCopy(other);
 	}
 	
+	/**
+	 * Returns what type of block is located at given x,y coordinate
+	 * @return Type of Block at location
+	 */
 	public Block getBlock(int x, int y)
     {
 		validateXY(x, y);
@@ -36,15 +46,9 @@ public class Level implements Serializable
 		return level[x][y];
     }
 	
-	public Block getBlockCapped(int x, int y)
-    {
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        if (x >= width) x = width - 1;
-        if (y >= height) y = height - 1;
-        return level[x][y];
-    }
-	
+	/**
+	 * Sets specified x,y coordinate to specified Block type
+	 */
 	public void setBlock(int x, int y, Block b)
 	{
         validateXY(x, y);
@@ -52,6 +56,9 @@ public class Level implements Serializable
         level[x][y] = b;
     }
 
+	/**
+	 * Does system print of current level
+	 */
 	public void printLevel()
 	{
 		for(int i = 0; i < width; i++)
@@ -65,6 +72,9 @@ public class Level implements Serializable
 		}
 	}
 	
+	/**
+	 * Sets row of level to given array of blocks
+	 */
 	public void setRow(Block[] row, int y)
 	{
 		validateY(y);
@@ -75,6 +85,9 @@ public class Level implements Serializable
 		}
 	}
 	
+	/**
+	 * Resets all flags to false
+	 */
 	public void resetFlag()
 	{
 		for(Block[] list : level)
@@ -84,6 +97,11 @@ public class Level implements Serializable
 			}
 	}
 	
+	/**
+	 * Copies double array of blocks from level
+	 * 
+	 * @return Array of blocks
+	 */
 	private Block[][] createCopy(Level other)
 	{
 		Block[][] lvl = new Block[width][height];
@@ -118,18 +136,27 @@ public class Level implements Serializable
 		}
 	}
 	
+	/**
+	 * Validates x and y coordinates 
+	 */
 	private void validateXY(int x, int y)
 	{
         validateX(x);
         validateY(y);
 	}
 	
+	/**
+	 * Ensures given x is between 0 and established width
+	 */
 	private void validateX(int x) 
 	{
 		if (x < 0 || x >= width)
         	throw new IllegalArgumentException("X has to be between 0-" + (width-1) + " Give: " + x);
 	}
 	
+	/**
+	 * Ensures given x is between 0 and established width
+	 */
 	private void validateY(int y)
 	{
 		if (y < 0 || y >= height) 

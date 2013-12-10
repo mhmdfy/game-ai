@@ -11,6 +11,12 @@ import com.level_handling.generator.Generator;
 
 public class RandomLevel 
 {
+	/**
+	 * Creates totally random level on a space by space approach.
+	 * After each block is placed, level is checked to be valid.
+	 * If not, empty space will be placed.
+	 * @return Random level consisting of walls, breakables, and empty spaces
+	 */
 		public static Level create()
 		{
 			Level level = new Level();
