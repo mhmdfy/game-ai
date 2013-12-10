@@ -2,6 +2,10 @@ package com.game;
 
 public class Constants 
 {
+	/**
+	 * Establishes constants to be used throughout project
+	 * such as dimensions of level and game rules
+	 */
 	// File Handling
 	public final static String LVL_PATH = "./levels/";
 	public final static String LVL_EXT = ".lvl";

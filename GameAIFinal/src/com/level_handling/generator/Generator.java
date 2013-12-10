@@ -30,6 +30,12 @@ public class Generator
 		saveToFile(fileName, level);
 		return level;
 	}
+	/**
+	 * Reads level for flags on empty and breakable spaces
+	 * after running floodfill to ensure all spaces are reachable
+	 * from start position. Also checks to see if start position is empty.
+	 * @return boolean value denoting if all spaces are reachable
+	 */
 	
 	public static boolean isValid(Level level)
 	{
@@ -54,6 +60,9 @@ public class Generator
 		return true;
 	}
 	
+	/**
+	 * Flags each consecutive empty or breakable block in given level starting from start position
+	 */
 	private static void floodFill(int x, int y, Level level)
 	{
 		if(invalidXY(x, y))
@@ -74,6 +83,10 @@ public class Generator
 		}
 	}
 	
+	/**
+	 * Ensures x and y values are between 0 and assigned width and height
+	 * @return boolean value stating if give x and y are valid
+	 */
 	private static boolean invalidXY(int x, int y)
 	{
 		if ( x < 0 || x >= Constants.WIDTH)

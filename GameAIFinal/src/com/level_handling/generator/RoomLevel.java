@@ -8,13 +8,17 @@ import com.data_structure.block.WallBlock;
 import com.game.Constants;
 import com.level_handling.Level;
 
-/**
- *
- */
+
 public class RoomLevel 
 {
 	private static int roomLength = 5;
 	
+	/**
+	 * * Creates a map consisting of random "rooms" which are 4 x 4 empty squares
+	 * Rooms will have random breakables within and at least one "door"
+	 * Each room is checked to be valid (i.e. allows access of entire map).
+	 * @return Complete map with 4 x 4 "rooms"
+	 */
 	public static Level create()
 	{
 		Level level = new Level();
