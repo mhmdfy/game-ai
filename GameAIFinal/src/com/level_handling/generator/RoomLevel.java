@@ -33,6 +33,14 @@ public class RoomLevel
 		return level;
 	}
 	
+	/**
+	 * Creates a copy of the given level and creates a room from 
+	 * the starting x and y. Doors are placed at random given that 
+	 * they don't exceed the max number of doors.
+	 * If the room is not valid after creating the room, it recursively
+	 * call itself with the old given level.
+	 * @return The new level with the valid room, or recurses if not valid.
+	 */
 	private static Level createRoom(int startX, int startY, Level level)
 	{
 		Level newLevel = new Level(level);
@@ -68,6 +76,10 @@ public class RoomLevel
 			return createRoom(startX, startY, level);
 	}
 	
+	/**
+	 * Adds breakable blocks to given level
+	 * SIDE-EFFECT: the given level changes with the added breakables.
+	 */
 	private static void addBreakables(Level level)
 	{
 		Random random = new Random();

@@ -26,6 +26,9 @@ public class Display extends PApplet
 	PImage gameOver;
 	PImage gameWin;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setup() 
 	{
@@ -45,6 +48,9 @@ public class Display extends PApplet
 		gameWin = loadImage(Constants.IMG_PATH + "gameWin" + Constants.IMG_EXT);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw() 
 	{
@@ -84,6 +90,9 @@ public class Display extends PApplet
 			
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed() 
 	{
@@ -106,6 +115,11 @@ public class Display extends PApplet
 		}
 	}
 	
+	/**
+	 * Gets a serialized string of the game, and creates a Game
+	 * Object by deserializing the string.
+	 * @return The Game of the serialized string.
+	 */
 	private static Game deserializeString(String string) 
 	{
 		// deserialize the object

@@ -12,6 +12,12 @@ import com.level_handling.generator.Generator;
 
 public class Main 
 {
+	/**
+	 * Main method of the game.
+	 * Takes the name of the level as the first argument, if the file
+	 * exists, it parses it and displays it. If the file doesn't exist
+	 * or "random" was passed, it generates a new level to play with.
+	 */
 	public static void main(String args[]) 
 	{
 		validateArgs(args);
@@ -28,6 +34,10 @@ public class Main
 		PApplet.main(new String[] { "--present", "com.game.Display", serializeGame(game)});
 	}
 	
+	/**
+	 * the arguments have to be of size 1 (the name of the level).
+	 * @param args
+	 */
 	private static void validateArgs(String args[]) 
 	{
 		if (args.length != 1)
@@ -37,12 +47,21 @@ public class Main
 		}
 	}
 	
+	/**
+	 * Checks if the file exists in the levels directory.
+	 * @return True if the file exists, False otherwise.
+	 */
 	private static boolean fileExists(String name) 
 	{
 		File file = new File(Constants.LVL_PATH + name + Constants.LVL_EXT);
 		return file.exists();
 	}
 	
+	/**
+	 * Takes the game and gets a serialized string of the game
+	 * to pass it to Display.
+	 * @return The serialized string of the game.
+	 */
 	private static String serializeGame(Game game) 
 	{
 		String result = "";

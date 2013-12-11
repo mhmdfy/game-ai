@@ -12,6 +12,12 @@ import com.game.Constants;
 
 public class Parser
 {	
+	/**
+	 * Parse a file by the given name, and returns the level
+	 * from the text version of the level from the file.
+	 * The programs exits if the file is invalid.
+	 * @return The level parsed
+	 */
 	public static Level parse(String name) 
 	{
 		String path = Constants.LVL_PATH + name + Constants.LVL_EXT;
@@ -43,6 +49,10 @@ public class Parser
 		return level;
 	}
 	
+	/**
+	 * Get an array of blocks from the given line of text.
+	 * @return blocks from the given line.
+	 */
 	private static Block[] getRow(String line) 
 	{
 		if(line.length() != Constants.WIDTH)
@@ -66,6 +76,10 @@ public class Parser
 		return row;
 	}
 	
+	/**
+	 * Prints an error message indicating that the file is of
+	 * a wrong format, then quits.
+	 */
 	private static void wrongFormat()
 	{
 		System.err.println("ERROR: Wrong level format");

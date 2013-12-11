@@ -16,14 +16,18 @@ public class Game implements Serializable
 {	
 	private static final long serialVersionUID = -8053469542486898772L;
 	
-	private String state;
+	private String state; // The state of the game
 	
-	private Level level;
-	private Bomberman player;
-	private ArrayList<AI> enemies;
-	private ArrayList<Bomb> bombs;
-	private ArrayList<Flame> flames;
+	private Level level; // The level being used
+	private Bomberman player; // The player object
+	private ArrayList<AI> enemies; // The enemies
+	private ArrayList<Bomb> bombs; // The bombs
+	private ArrayList<Flame> flames; // The flames
 	
+	/**
+	 * Constructor for the game. Takes in a level and creates a game
+	 * with the player on the spawning location and enemies generated.
+	 */
 	public Game(Level level)
 	{
 		this.level = level;
@@ -35,6 +39,11 @@ public class Game implements Serializable
 		this.state = Constants.GAME_ACTIVE;
 	}
 	
+	/**
+	 * Generate enemies and place them on random empty locations
+	 * on the map.
+	 * @return
+	 */
 	private ArrayList<AI> initializeEnemies()
 	{
 		ArrayList<AI> list = new ArrayList<AI>();
@@ -57,36 +66,69 @@ public class Game implements Serializable
 		return list;
 	}
 	
+	/**
+	 * Gets the state of the game.
+	 * Active, Win, Lose
+	 * @return The state of the game
+	 */
 	public String getState()
 	{
 		return state;
 	}
 	
+	/**
+	 * Gets the level of the game.
+	 * @return The level of the game
+	 */
 	public Level getLevel() 
 	{
 		return level;
 	}
 	
+	/**
+	 * Gets the player of the game.
+	 * @return The player of the game
+	 */
 	public Bomberman getPlayer()
 	{
 		return player;
 	}
 	
+	/**
+	 * Gets the list of enemies
+	 * @return The list of enemies
+	 */
 	public ArrayList<AI> getEnemies()
 	{
 		return enemies;
 	}
 	
+	/**
+	 * Gets the list of bombs
+	 * @return The list of bombs
+	 */
 	public ArrayList<Bomb> getBombs()
 	{
 		return bombs;
 	}
 	
+	/**
+	 * Gets the list of flames
+	 * @return The list of flames
+	 */
 	public ArrayList<Flame> getFlames()
 	{
 		return flames;
 	}
 	
+	/**
+	 * Tick function of the game:
+	 * Check for win and lose condition, and run the
+	 * tick functions of all objects in the game.
+	 * 
+	 * Win condition: all enemies are dead.
+	 * Lose condition: player has no lifes left
+	 */
 	public void tick()
 	{
 		if(player.getLifes() == 0)
@@ -130,6 +172,9 @@ public class Game implements Serializable
 		}
 	}
 	
+	/**
+	 * Move the player in the direction of the key
+	 */
 	public void move(String key)
 	{
 		if (key == "up" && canMoveUp(player))
@@ -145,6 +190,10 @@ public class Game implements Serializable
 			player.moveLeft();
 	}
 	
+	/**
+	 * Create a bomb on the player's map location if the player 
+	 * is able to bomb at this time.
+	 */
 	public void playerBomb()
 	{
 		if(player.canBomb())
@@ -155,6 +204,9 @@ public class Game implements Serializable
 		}
 	}
 	
+	/**
+	 * Move the AI in the direction of the next move.
+	 */
 	private void moveAI(int i)
 	{
 		AI ai = enemies.get(i);		
@@ -170,6 +222,13 @@ public class Game implements Serializable
 	}
 	
 	// TODO Refactor (maybe)
+	/**
+	 * The bomb explodes, creating flames on areas effected.
+	 * The effected blocks are the areas adjecent to the bomb in all 
+	 * directions and it reaches to the range of the bomb or when it 
+	 * reaches a wall. If breakables are in the affected blocks, destroy
+	 * it and stop the spread.
+	 */
 	private void explode(int i)
 	{
 		Bomb bomb = bombs.remove(i);
@@ -232,6 +291,11 @@ public class Game implements Serializable
 	}
 	
 	// TODO Refacter to canMove(Char, String)
+	/**
+	 * Following 4 methods move the given character to the direction
+	 * that the method indicates if that block is free.
+	 * @return True if was able to move, False otherwise.
+	 */
 	private boolean canMoveUp(Char c)
 	{
 		if (c.getY() % Constants.MAP_Y != 0)
@@ -332,7 +396,12 @@ public class Game implements Serializable
 		return false;
 	}
 	
-	public boolean freeBlock(int x, int y)
+	/**
+	 * Checks if the block located on the given x and y is free,
+	 * as in empty and has no bombs.
+	 * @return True if the block is free, False otherwise
+	 */
+	private boolean freeBlock(int x, int y)
 	{
 		for(Bomb b: bombs)
 		{

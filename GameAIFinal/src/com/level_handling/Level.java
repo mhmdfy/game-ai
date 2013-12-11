@@ -19,7 +19,7 @@ public class Level implements Serializable
 	private Block[][] level;
 	
 	/**
-	 * Creates level which is double array of Blocks
+	 * Constructor for the Level, creates level with wall borders.
 	 */
 	public Level() 
 	{
@@ -28,7 +28,7 @@ public class Level implements Serializable
 	}
 	
 	/**
-	 * Creates a copy of a level
+	 * Constructor for the level, creates a copy of the given level
 	 */
 	public Level(Level other)
 	{
@@ -36,8 +36,8 @@ public class Level implements Serializable
 	}
 	
 	/**
-	 * Returns what type of block is located at given x,y coordinate
-	 * @return Type of Block at location
+	 * Gets the block that is located at given coords
+	 * @return Block at location
 	 */
 	public Block getBlock(int x, int y)
     {
@@ -47,7 +47,7 @@ public class Level implements Serializable
     }
 	
 	/**
-	 * Sets specified x,y coordinate to specified Block type
+	 * Sets specified x,y coordinate to specified Block location
 	 */
 	public void setBlock(int x, int y, Block b)
 	{
@@ -57,7 +57,7 @@ public class Level implements Serializable
     }
 
 	/**
-	 * Does system print of current level
+	 * Prints a text version of the level.
 	 */
 	public void printLevel()
 	{
@@ -73,7 +73,7 @@ public class Level implements Serializable
 	}
 	
 	/**
-	 * Sets row of level to given array of blocks
+	 * Sets row of level to given array of blocks at yth row.
 	 */
 	public void setRow(Block[] row, int y)
 	{
@@ -98,9 +98,8 @@ public class Level implements Serializable
 	}
 	
 	/**
-	 * Copies double array of blocks from level
-	 * 
-	 * @return Array of blocks
+	 * Copies the given level.
+	 * @return The copy of the level
 	 */
 	private Block[][] createCopy(Level other)
 	{
@@ -122,6 +121,9 @@ public class Level implements Serializable
 		return lvl;
 	}
 	
+	/**
+	 * Initializes the level with wall borders.
+	 */
 	private void initLevel()
 	{
 		for(int i = 0; i < width; i++)

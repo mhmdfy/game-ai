@@ -14,6 +14,11 @@ public class Generator
 	private static int width = Constants.WIDTH;
 	private static int height = Constants.HEIGHT;	
 	
+	/**
+	 * Generates a new generated level and saves it to a file
+	 * of the name that is given.
+	 * @return The level generated.
+	 */
 	public static Level generate(String fileName)
 	{
 		Level level;
@@ -30,13 +35,13 @@ public class Generator
 		saveToFile(fileName, level);
 		return level;
 	}
+	
 	/**
 	 * Reads level for flags on empty and breakable spaces
 	 * after running floodfill to ensure all spaces are reachable
-	 * from start position. Also checks to see if start position is empty.
-	 * @return boolean value denoting if all spaces are reachable
+	 * from start position. Also checks to see if start position is valid.
+	 * @return True if all spaces are reachable, False otherwise.
 	 */
-	
 	public static boolean isValid(Level level)
 	{
 		if(!(level.getBlock(1, 1).isEmpty() && level.getBlock(1, 2).isEmpty()
@@ -61,7 +66,8 @@ public class Generator
 	}
 	
 	/**
-	 * Flags each consecutive empty or breakable block in given level starting from start position
+	 * Floodfill algorithm: Flags each consecutive empty or breakable block 
+	 * in given level starting from start position
 	 */
 	private static void floodFill(int x, int y, Level level)
 	{
@@ -98,6 +104,10 @@ public class Generator
 		return false;
 	}
 	
+	/**
+	 * Saves the given level to a file in the levels directory with 
+	 * the given name
+	 */
 	private static void saveToFile(String name, Level level)
 	{
 		String path = Constants.LVL_PATH + name + Constants.LVL_EXT;
