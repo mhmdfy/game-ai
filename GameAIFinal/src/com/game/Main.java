@@ -2,6 +2,7 @@ package com.game;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.ObjectOutputStream;
+import java.util.Base64;
 
 import processing.core.PApplet;
 
@@ -73,7 +74,7 @@ public class Main
 			ObjectOutputStream so = new ObjectOutputStream(bo);
 			so.writeObject(game);
 			so.flush();
-			result = bo.toString();
+			result = Base64.getEncoder().encodeToString(bo.toByteArray());
 			return result;
 		} 
 		catch (Exception e) 

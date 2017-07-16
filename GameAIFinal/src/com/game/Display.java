@@ -2,6 +2,7 @@ package com.game;
 
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
+import java.util.Base64;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -125,7 +126,7 @@ public class Display extends PApplet
 		// deserialize the object
 		try 
 		{
-			byte b[] = string.getBytes(); 
+			byte b[] = Base64.getDecoder().decode(string.getBytes());
 			ByteArrayInputStream bi = new ByteArrayInputStream(b);
 			ObjectInputStream si = new ObjectInputStream(bi);
 			Game game = (Game) si.readObject();
